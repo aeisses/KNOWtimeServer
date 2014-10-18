@@ -1,7 +1,7 @@
 {
   "name": "KNOWtime",
   "version": "0.1.2",
-  "description": "A sample Node.js app using Express 4",
+  "description": "KNOWtime Heruko Server",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ihttps://github.com/aeisses/KNOWtimeServer.git"
+    "url": "https://github.com/aeisses/KNOWtimeServer.git"
   },
   "keywords": [
     "node",
