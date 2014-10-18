@@ -1,0 +1,7 @@
+{
+  "name": "KNOWtime",
+  "description": "KNOWtime Heroku Server",
+  "repository": "https://github.com/aeisses/KNWOtimeServer",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static"]
+}
