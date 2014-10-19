@@ -1,7 +1,7 @@
 var express = require('express')
 var app = express();
 var pg = require('pg');
-var Route = require('./route.js');
+var Route = require('./lib/route.js');
 var routes = {};
 
 app.get('/db', function (request, response) {
@@ -14,7 +14,7 @@ app.get('/db', function (request, response) {
       {
         for (var i in result.rows) {
           var Route = require('./route.js');
-          var row = rows[i];
+          var row = result.rows[i];
           routes[row.id] = new Route(row.id, row.short_name, row.long_name, row.type); 
         }
       } 
