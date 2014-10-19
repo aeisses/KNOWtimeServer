@@ -12,9 +12,12 @@ app.get('/db', function (request, response) {
        { console.error(err); response.send("Error " + err); }
       else
       {
+        var callback = function(id) {
+          console.log('finished setting up route: '+id);
+        }
         for (var i in result.rows) {
           var row = result.rows[i];
-          routes[row.id] = new Route(row.id, row.short_name, row.long_name, row.type); 
+          routes[row.id] = new Route(row.id, row.short_name, row.long_name, row.type, callback); 
         }
       } 
     });
