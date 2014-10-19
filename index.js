@@ -9,7 +9,16 @@ app.get('/db', function (request, response) {
       if (err)
        { console.error(err); response.send("Error " + err); }
       else
-       { response.send(result.rows); }
+      {
+        var rows = result.rows;
+//        console.log(result.rows);
+        for (var i in rows) {
+          var Route = require('./route.js');
+          var row = rows[i];
+//          console.log(rows[i]);
+          var myRoute = new Route(row.id,row.short_name,row.long_name,row.type);
+        }
+      } 
     });
   });
 })
