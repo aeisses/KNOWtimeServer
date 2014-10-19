@@ -1,0 +1,8 @@
+To clean the data base and re-initialize
+
+From the Heroku postgres command line;
+heroku pg:psql
+
+execute the following command:
+\i ~/Heroku/KNOWtimeServer/data/google_transit/databasecreate.sql;
+\i ~/Heroku/KNOWtimeServer/data/google_transit/databaseclean.sql;
