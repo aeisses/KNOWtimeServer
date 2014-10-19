@@ -13,7 +13,6 @@ app.get('/db', function (request, response) {
       else
       {
         for (var i in result.rows) {
-          var Route = require('./route.js');
           var row = result.rows[i];
           routes[row.id] = new Route(row.id, row.short_name, row.long_name, row.type); 
         }
