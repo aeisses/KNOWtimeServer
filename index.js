@@ -1,6 +1,8 @@
 var express = require('express')
 var app = express();
 var pg = require('pg');
+var Route = require('./route.js');
+var routes = {};
 
 app.get('/db', function (request, response) {
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
@@ -10,13 +12,10 @@ app.get('/db', function (request, response) {
        { console.error(err); response.send("Error " + err); }
       else
       {
-        var rows = result.rows;
-//        console.log(result.rows);
-        for (var i in rows) {
+        for (var i in result.rows) {
           var Route = require('./route.js');
           var row = rows[i];
-//          console.log(rows[i]);
-          var myRoute = new Route(row.id,row.short_name,row.long_name,row.type);
+          routes[row.id] = new Route(row.id, row.short_name, row.long_name, row.type); 
         }
       } 
     });
