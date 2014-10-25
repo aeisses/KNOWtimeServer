@@ -5,6 +5,14 @@ var Route = require('./lib/route.js');
 var query = require('./lib/query.js');
 var routes = {};
 
+var addon = require('./build/Release/addon');
+console.log(addon);
+var obj = new addon.Interface("junk");
+console.log(obj);
+console.log( obj.beginService() );
+console.log( obj.getBuses() );
+console.log( obj.updateBus() );
+
 app.get('/db', function (request, response) {
     query.connectionParameters = process.env.DATABASE_URL;
     query('SELECT * from routes', function(err, rows, result) {
