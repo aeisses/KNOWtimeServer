@@ -5,13 +5,12 @@
 
 using namespace std;
 
-class Path {
+class CalendarDates {
   public:
     string id;
-    double lat;
-    double lng;
-    int sequence;
-    Path(string, double, double, int);
+    int date;
+    int exception_type;
+    CalendarDates(string, int, int);
 };
 
 #endif
