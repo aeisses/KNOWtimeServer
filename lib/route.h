@@ -2,6 +2,7 @@
 #define MYOBJECT_H
 
 #include <string>
+#include "database.h"
 
 using namespace std;
 
