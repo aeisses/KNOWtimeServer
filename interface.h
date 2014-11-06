@@ -1,5 +1,5 @@
-#ifndef MYOBJECT_H
-#define MYOBJECT_H
+#ifndef INTERFACE_H
+#define INTERFACE_H 
 
 #include <node.h>
 

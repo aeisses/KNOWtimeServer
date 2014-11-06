@@ -2,7 +2,7 @@
 
 #include <pqxx/pqxx>
 #include "interface.h"
-#include "./lib/route.h"
+#include "./lib/service.h"
 
 using namespace v8;
 
@@ -43,6 +43,7 @@ Handle<Value> Interface::BeginService(const Arguments& args) {
 //  returnObject[L"firstname"] = json::value::string(L"aaron");
 //  returnObject[L"lastname"] = json::value::string(L"eisses");
 //  return scope.Close(returnObject);
+  Service::startService();
   return scope.Close(Number::New(2));
 }
 

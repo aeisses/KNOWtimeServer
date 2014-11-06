@@ -1,27 +1,28 @@
-#ifndef MYOBJECT_H
-#define MYOBJECT_H
+#ifndef DATABASE_H
+#define DATABASE_H
 
 #include <string>
+#include <iostream>
 #include <pqxx/pqxx>
 
 using namespace std;
-using namespace ppxx;
+using namespace pqxx;
+
+enum DB_RESULT_CODE {
+  DB_SUCCESS,
+  DB_CONNECT_FAIL,
+  DB_ERROR
+};
+
+struct queryResult {
+  DB_RESULT_CODE code;
+  result R;
+};
 
 class DataBase {
 
-  enum DB_RESULT_CODE {
-    DB_SUCCESS,
-    DB_CONNECT_FAIL,
-    DB_QUERY_FAIL
-  };
-
-  struct queryResult {
-    DB_RESULT_CODE code;
-    result R;
-  };
- 
   public:
-    static queryResult executeQuery(String query);
+    static queryResult executeQuery(string query);
 };
 
 #endif
