@@ -10,7 +10,6 @@ void Service::startService() {
       cout << "ID = " << c[0].as<string>() << endl;
       cout << "ShortName = " << c[1].as<string>() << endl;
       cout << "LongName = " << c[2].as<string>() << endl;
-      cout << "Type = " << c[3].as<string>() << endl;
     } 
   }
 }
