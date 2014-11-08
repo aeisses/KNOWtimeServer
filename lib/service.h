@@ -2,6 +2,7 @@
 #define SERVICE_H
 
 #include <iostream>
+#include <vector>
 #include "route.h"
 #include "database.h"
 
@@ -12,6 +13,9 @@ class Service {
 
   public:
     static void startService();
+
+  private:
+    static vector<Route*> routes;
 };
 
 #endif

@@ -2,7 +2,7 @@
   "targets": [
     {
       "target_name": "addon",
-      "sources": [ "addon.cc", "interface.cc", "lib/service.cc", "lib/database.cc" ],
+      "sources": [ "addon.cc", "interface.cc", "lib/service.cc", "lib/database.cc", "lib/route.cc" ],
       "include_dirs": ["vendor/libpqxx/include", "/usr/include/postgresql", "lib"],
       "libraries": [ "-L../vendor/libpqxx/lib", "-lpqxx", "-lpq" ],
       "cflags!": ["-fno-exceptions"],
