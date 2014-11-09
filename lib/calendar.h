@@ -1,5 +1,5 @@
-#ifndef MYOBJECT_H
-#define MYOBJECT_H
+#ifndef CALENDAR_H
+#define CALENDAR_H
 
 #include <string>
 

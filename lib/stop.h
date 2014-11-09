@@ -1,5 +1,5 @@
-#ifndef MYOBJECT_H
-#define MYOBJECT_H
+#ifndef STOP_H
+#define STOP_H
 
 #include <string>
 

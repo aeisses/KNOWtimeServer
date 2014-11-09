@@ -1,5 +1,5 @@
-#ifndef MYOBJECT_H
-#define MYOBJECT_H
+#ifndef PATH_H
+#define PATH_H
 
 #include <string>
 

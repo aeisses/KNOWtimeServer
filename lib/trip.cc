@@ -7,7 +7,7 @@
 // shape_id -> This is linked to the shape of the route, which is a list of GPS locatiions that define the route
 
 // Trip Constructor
-Trip::Trip(string _routeId, string _serviceId, string _tripId, string _tripHeadSign, string _directionId, string _blockId, string _shapeId) {
+Trip::Trip (string _routeId, string _serviceId, string _tripId, string _tripHeadSign, string _directionId, string _blockId, string _shapeId) {
   routeId = _routeId;
   serviceId = _serviceId;
   tripId = _tripId;
@@ -36,7 +36,6 @@ Trip::Trip (result::const_iterator c) {
 
   // Get the tripId, it is the primary key and always has a value
   tripId = c[2].as<string>();
-  cout << "TripId: " << tripId << endl;
 
   // Get the tripHeadSign if the value is not null
   if (c[3].is_null()) {
@@ -70,4 +69,38 @@ Trip::Trip (result::const_iterator c) {
 // Destructor
 Trip::~Trip() {
 
+}
+
+// Get the being time and end time for the trip
+// This information comes from the stop_times
+void Trip::getBeginAndEndTime() {
+  // Vector to store the information
+  StopTimeList stoptimes;
+
+  // Query the database
+  queryResult myResult = DataBase::executeQuery("SELECT * FROM stop_times WHERE trip_id='"+tripId+"'");
+  if (myResult.code == DB_SUCCESS) {
+    for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
+      StopTime *stopTime = new StopTime(c);
+      stoptimes.push_back (stopTime);
+    }
+  }
+
+  // Sort the vector on sequence number to ensure it is in order
+//  sort(&(*stoptimes.begin()), &(*stoptimes.end()), less_than_key());
+
+  // Get the first stop and the last stop
+ beginTime = stoptimes[0];
+ endTime = (stoptimes[stoptimes.size()-1]);
+
+  // Free the vector
+  vector<StopTime*>().swap(stoptimes);
+}
+
+string Trip::getBeginTime() {
+  return beginTime->arrival_time;
+}
+
+string Trip::getEndTime() {
+  return endTime->arrival_time;
 }

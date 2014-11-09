@@ -1,5 +1,5 @@
-#ifndef MYOBJECT_H
-#define MYOBJECT_H
+#ifndef ROUTE_H
+#define ROUTE_H
 
 #include <string>
 #include <pqxx/pqxx>
@@ -13,8 +13,7 @@ class Route {
 
   private:
     typedef vector<Trip*> TripList;
-    static TripList trips;
-    static bool deleteAll( Trip* trip ) { delete trip; return true; };
+    TripList trips;
 
   public:
     string id;

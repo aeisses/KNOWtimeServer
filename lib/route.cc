@@ -1,7 +1,5 @@
 #include <route.h>
 
-vector<Trip*> Route::trips;
-
 Route::Route (result::const_iterator c) {
 
   // Get the id if the value is not null
@@ -55,7 +53,8 @@ void Route::loadTrips() {
   if (myResult.code == DB_SUCCESS) {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       Trip *trip = new Trip(c);
-      Route::trips.push_back (trip);
+      trip->getBeginAndEndTime();
+      trips.push_back (trip);
     }
   }
 }

@@ -1,6 +1,6 @@
 #include "service.h"
 
-vector<Route*> Service::routes;
+vector<Route> Service::routes;
 
 void Service::startService() {
   // Start the service
@@ -11,7 +11,7 @@ void Service::startService() {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       Route route(c);
       route.loadTrips();
-      Service::routes.push_back (&route);
+      Service::routes.push_back (route);
     } 
   }
 

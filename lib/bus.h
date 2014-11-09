@@ -1,5 +1,5 @@
-#ifndef MYOBJECT_H
-#define MYOBJECT_H
+#ifndef BUS_H
+#define BUS_H
 
 #include <string>
 

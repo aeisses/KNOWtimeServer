@@ -10,9 +10,7 @@ queryResult DataBase::executeQuery(string query) {
   try {
     // Connect to the database
     connection C(dbConnectString);
-    if (C.is_open()) {
-      cout << "Open database successfullt: " << C.dbname() << endl;
-    } else {
+    if (!C.is_open()) {
       cout << "Can't open database" << endl;
       myResult.code = DB_CONNECT_FAIL;
       return myResult;
@@ -24,7 +22,7 @@ queryResult DataBase::executeQuery(string query) {
     // Execute the SQL query
     result R( N.exec( query ));
 
-    cout << "Operation done sucessfully" << endl;
+//    cout << "Operation done sucessfully" << endl;
     
     myResult.code = DB_SUCCESS;
     myResult.R = R;
@@ -32,6 +30,7 @@ queryResult DataBase::executeQuery(string query) {
     return myResult;
 
   } catch (const std::exception &e) {
+    cout << "Operation failed" << endl;
     cerr << e.what() << std::endl;
     myResult.code = DB_ERROR;
     return myResult;
