@@ -1,5 +1,12 @@
 #include "trip.h"
 
+// Notes about Trips
+// route_id -> This is linked to the routes, and many trips will have the same route_id
+// service_id -> This is linked to calendar dates which tells up what day the route will be active
+// trip_id -> This is the unique to the trip
+// shape_id -> This is linked to the shape of the route, which is a list of GPS locatiions that define the route
+
+// Trip Constructor
 Trip::Trip(string _routeId, string _serviceId, string _tripId, string _tripHeadSign, string _directionId, string _blockId, string _shapeId) {
   routeId = _routeId;
   serviceId = _serviceId;
@@ -10,8 +17,9 @@ Trip::Trip(string _routeId, string _serviceId, string _tripId, string _tripHeadS
   shapeId = _shapeId;
 }
 
+// Trip Constructor
 Trip::Trip (result::const_iterator c) {
-  
+
   // Get the routeId if the value is not null
   if (c[0].is_null()) {
     routeId = "";
@@ -28,6 +36,7 @@ Trip::Trip (result::const_iterator c) {
 
   // Get the tripId, it is the primary key and always has a value
   tripId = c[2].as<string>();
+  cout << "TripId: " << tripId << endl;
 
   // Get the tripHeadSign if the value is not null
   if (c[3].is_null()) {

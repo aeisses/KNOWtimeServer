@@ -1,5 +1,5 @@
-#ifndef MYOBJECT_H
-#define MYOBJECT_H
+#ifndef TRIP_H
+#define TRIP_H
 
 #include <string>
 #include <pqxx/pqxx>
