@@ -2,8 +2,11 @@
 #define MYOBJECT_H
 
 #include <string>
+#include <pqxx/pqxx>
+#include "database.h"
 
 using namespace std;
+using namespace pqxx;
 
 class Trip {
   public:
@@ -15,6 +18,8 @@ class Trip {
     string blockId;
     string shapeId;
     Trip(string, string, string, string, string, string, string);
+    Trip(result::const_iterator);
+    ~Trip();
 };
 
 #endif
