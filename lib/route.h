@@ -14,6 +14,10 @@ class Route {
   private:
     typedef vector<Trip*> TripList;
     TripList trips;
+    TripList activeTrips;
+    Trip *nextTrip;
+    void determineActiveTrips();
+    void determineNextTrip();
 
   public:
     string id;

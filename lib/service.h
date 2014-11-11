@@ -12,7 +12,7 @@ using namespace pqxx;
 class Service {
 
   private:
-    typedef vector<Route> RouteList;
+    typedef vector<Route*> RouteList;
     static RouteList routes;
 
   public:

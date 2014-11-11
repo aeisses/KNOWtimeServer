@@ -100,7 +100,6 @@ void Trip::getBeginAndEndTime() {
 
   // Free the vector
   vector<StopTime*>().swap(stoptimes);
-  cout << "Finished Trip" << endl;
 }
 
 time_t Trip::getBeginTime() {

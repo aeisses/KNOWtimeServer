@@ -6,12 +6,7 @@ var query = require('./lib/query.js');
 var routes = {};
 
 var addon = require('./build/Release/addon');
-console.log(addon);
 var obj = new addon.Interface("junk");
-console.log(obj);
-console.log( obj.beginService() );
-console.log( obj.getBuses() );
-console.log( obj.updateBus() );
 
 app.get('/db', function (request, response) {
     query.connectionParameters = process.env.DATABASE_URL;
@@ -41,4 +36,6 @@ app.get('/', function(request, response) {
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
+  console.log("Loading Service");
+  console.log( obj.beginService() );
 })

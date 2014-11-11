@@ -1,5 +1,25 @@
 #include <route.h>
 
+// Private Methods
+void Route::determineActiveTrips() {
+  time_t currentTime = time(0);
+  for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
+    if ((*it)->getBeginTime() <= currentTime && (*it)->getEndTime() >= currentTime) {
+      activeTrips.push_back ((*it));
+    }
+  }
+}
+
+void Route::determineNextTrip() {
+  time_t currentTime = time(0);
+  for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
+    if ((*it)->getBeginTime() >= currentTime && (nextTrip == NULL || nextTrip->getBeginTime() < (*it)->getBeginTime())) {
+      nextTrip = (*it);
+    }
+  }
+}
+
+// Public Methods
 Route::Route (result::const_iterator c) {
 
   // Get the id if the value is not null
@@ -55,13 +75,14 @@ void Route::loadTrips() {
       Trip *trip = new Trip(c);
       trip->getBeginAndEndTime();
       time_t beginTime = trip->getBeginTime();
-      cout << "BeginTime: " << beginTime << endl;
       trips.push_back (trip);
+      cout << "Trip Loaded" << endl;
     }
   }
+  determineActiveTrips();
 }
 
 // Destructor
 Route::~Route() {
-  vector<Trip*>().swap(trips);
+  TripList().swap(trips);
 }
