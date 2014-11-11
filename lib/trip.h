@@ -5,10 +5,12 @@
 #include <algorithm>
 #include <vector>
 #include <pqxx/pqxx>
+#include <ctime>
 #include "database.h"
 #include "stoptime.h"
 #include "calendar.h"
 #include "calendardate.h"
+#include "utils.h"
 
 using namespace std;
 using namespace pqxx;
@@ -50,8 +52,8 @@ class Trip {
     Trip(result::const_iterator);
     ~Trip();
     void getBeginAndEndTime();
-    string getBeginTime();
-    string getEndTime();
+    time_t getBeginTime();
+    time_t getEndTime();
 };
 
 #endif

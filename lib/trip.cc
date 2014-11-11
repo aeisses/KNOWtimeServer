@@ -103,12 +103,14 @@ void Trip::getBeginAndEndTime() {
   cout << "Finished Trip" << endl;
 }
 
-string Trip::getBeginTime() {
-  return beginTime->arrival_time;
+time_t Trip::getBeginTime() {
+  return Utils::getDateFromTime(beginTime->arrival_time);
+//  return beginTime->arrival_time;
 }
 
-string Trip::getEndTime() {
-  return endTime->arrival_time;
+time_t Trip::getEndTime() {
+  return Utils::getDateFromTime(endTime->arrival_time);
+//  return endTime->arrival_time;
 }
 
 // Get the calendar information for the trip

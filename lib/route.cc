@@ -54,6 +54,8 @@ void Route::loadTrips() {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       Trip *trip = new Trip(c);
       trip->getBeginAndEndTime();
+      time_t beginTime = trip->getBeginTime();
+      cout << "BeginTime: " << beginTime << endl;
       trips.push_back (trip);
     }
   }
