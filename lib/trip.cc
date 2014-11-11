@@ -87,6 +87,7 @@ void Trip::getBeginAndEndTime() {
   }
 
   // Sort the vector on sequence number to ensure it is in order
+// TODO we will want to get this sort working at some point
 //  sort(&(*stoptimes.begin()), &(*stoptimes.end()), less_than_key());
 
   // Get the first stop and the last stop
