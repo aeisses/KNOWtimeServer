@@ -86,6 +86,10 @@ Calendar::Calendar(result::const_iterator c) {
   }
 }
 
+Calendar::~Calendar() {
+
+}
+
 bool Calendar::isMonday() {
   if (monday == 1) {
     return true;

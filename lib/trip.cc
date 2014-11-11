@@ -91,11 +91,16 @@ void Trip::getBeginAndEndTime() {
 //  sort(&(*stoptimes.begin()), &(*stoptimes.end()), less_than_key());
 
   // Get the first stop and the last stop
- beginTime = stoptimes[0];
- endTime = (stoptimes[stoptimes.size()-1]);
+  beginTime = stoptimes[0];
+  endTime = (stoptimes[stoptimes.size()-1]);
+
+  // Get the calendar and the calendar dates for the trip
+  getCalendarForTrip();
+  getCalendarDatesForTrip();
 
   // Free the vector
   vector<StopTime*>().swap(stoptimes);
+  cout << "Finished Trip" << endl;
 }
 
 string Trip::getBeginTime() {
@@ -105,3 +110,27 @@ string Trip::getBeginTime() {
 string Trip::getEndTime() {
   return endTime->arrival_time;
 }
+
+// Get the calendar information for the trip
+void Trip::getCalendarForTrip() {
+  queryResult myResult = DataBase::executeQuery("SELECT * FROM calendar WHERE id='"+serviceId+"'");
+  if (myResult.code == DB_SUCCESS) {
+    // There should only be one result in this return vector
+    if (myResult.R.size() == 1) {
+      result::const_iterator c = myResult.R.begin();
+      calendar = new Calendar(c);
+    }
+  }
+}
+
+// Get the calendarDates information for the trip
+void Trip::getCalendarDatesForTrip() {
+  queryResult myResult = DataBase::executeQuery("SELECT * FROM calendar_dates WHERE id='"+serviceId+"'");
+  if (myResult.code == DB_SUCCESS) {
+    for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
+      CalendarDate *calendarDate = new CalendarDate(c);
+      calendardates.push_back (calendarDate);
+    }
+  }
+}
+

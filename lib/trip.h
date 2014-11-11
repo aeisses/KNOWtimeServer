@@ -7,6 +7,8 @@
 #include <pqxx/pqxx>
 #include "database.h"
 #include "stoptime.h"
+#include "calendar.h"
+#include "calendardate.h"
 
 using namespace std;
 using namespace pqxx;
@@ -22,10 +24,19 @@ class Trip {
   private:
 //    bool compare (StopTime i, StopTime j) { return (i.stop_sequence < j.stop_sequence); };
     typedef vector<StopTime*> StopTimeList;
-    typedef StopTimeList::iterator iterator;
-    typedef StopTimeList::const_iterator const_iterator;
+// Uncomment when needed
+//    typedef StopTimeList::iterator st_terator;
+//    typedef StopTimeList::const_iterator st_const_iterator;
     StopTime *beginTime;
     StopTime *endTime;
+    Calendar *calendar;
+    typedef vector<CalendarDate*> CalendarDateList;
+    CalendarDateList calendardates;
+// Uncomment when needed
+//    typedef CalendarDateList::iterator cd_iterator;
+//    typedef CalendarDateList::const_iterator cd_const_iterator;
+    void getCalendarForTrip();
+    void getCalendarDatesForTrip();
 
   public:
     string routeId;

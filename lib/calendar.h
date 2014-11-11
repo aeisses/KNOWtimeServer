@@ -24,6 +24,7 @@ class Calendar {
     int end_date;
     Calendar(string, int, int, int, int, int, int, int, int, int);
     Calendar(result::const_iterator);
+    ~Calendar();
     bool isMonday();
     bool isTuesday();
     bool isWednesday();
