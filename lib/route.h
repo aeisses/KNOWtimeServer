@@ -33,7 +33,7 @@ class Route {
     typedef TripList::const_iterator const_iterator;
     iterator begin() { return trips.begin(); };
     iterator end() { return trips.end(); };
-
+    void tripCompleted( Trip* );
 };
 
 #endif

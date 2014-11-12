@@ -3,12 +3,19 @@
 // To figure out what is going on here make sure you reference:
 // http://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
 
+// Get the local time
+time_t Utils::getLocalTime() {
+  time_t now = time(0);
+  now -= (3600*4444);
+  return now;
+}
+
 // Take a string in the structure of HH:MM:SS, add that to today
 // and return the number of seconds since January 1, 1970
 time_t Utils::getDateFromTime(string hoursMinutesSeconds) {
   // Get the current time
-  time_t now = time(0);
-
+  time_t now = Utils::getLocalTime();
+  
   // Get the local time
   tm *ltm = localtime(&now);
 

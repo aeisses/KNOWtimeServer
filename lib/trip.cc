@@ -1,4 +1,5 @@
 #include "trip.h"
+#include "route.h"
 
 // Notes about Trips
 // route_id -> This is linked to the routes, and many trips will have the same route_id
@@ -6,6 +7,31 @@
 // trip_id -> This is the unique to the trip
 // shape_id -> This is linked to the shape of the route, which is a list of GPS locatiions that define the route
 
+// Private Methods
+// Get the calendar information for the trip
+void Trip::getCalendarForTrip() {
+  queryResult myResult = DataBase::executeQuery("SELECT * FROM calendar WHERE id='"+serviceId+"'");
+  if (myResult.code == DB_SUCCESS) {
+    // There should only be one result in this return vector
+    if (myResult.R.size() == 1) {
+      result::const_iterator c = myResult.R.begin();
+      calendar = new Calendar(c);
+    }
+  }
+}
+
+// Get the calendarDates information for the trip
+void Trip::getCalendarDatesForTrip() {
+  queryResult myResult = DataBase::executeQuery("SELECT * FROM calendar_dates WHERE id='"+serviceId+"'");
+  if (myResult.code == DB_SUCCESS) {
+    for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
+      CalendarDate *calendarDate = new CalendarDate(c);
+      calendardates.push_back (calendarDate);
+    }
+  }
+}
+
+// Public Methods
 // Trip Constructor
 Trip::Trip (string _routeId, string _serviceId, string _tripId, string _tripHeadSign, string _directionId, string _blockId, string _shapeId) {
   routeId = _routeId;
@@ -112,26 +138,8 @@ time_t Trip::getEndTime() {
 //  return endTime->arrival_time;
 }
 
-// Get the calendar information for the trip
-void Trip::getCalendarForTrip() {
-  queryResult myResult = DataBase::executeQuery("SELECT * FROM calendar WHERE id='"+serviceId+"'");
-  if (myResult.code == DB_SUCCESS) {
-    // There should only be one result in this return vector
-    if (myResult.R.size() == 1) {
-      result::const_iterator c = myResult.R.begin();
-      calendar = new Calendar(c);
-    }
-  }
+// Monitor the trip and call back when the trip ends
+void Trip::monitorTrip(Route* route) {
+  // Set a timer here that will fire when the trip has expired
+  route->tripCompleted( this );
 }
-
-// Get the calendarDates information for the trip
-void Trip::getCalendarDatesForTrip() {
-  queryResult myResult = DataBase::executeQuery("SELECT * FROM calendar_dates WHERE id='"+serviceId+"'");
-  if (myResult.code == DB_SUCCESS) {
-    for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
-      CalendarDate *calendarDate = new CalendarDate(c);
-      calendardates.push_back (calendarDate);
-    }
-  }
-}
-

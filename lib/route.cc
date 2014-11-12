@@ -1,10 +1,13 @@
 #include <route.h>
 
+
 // Private Methods
 void Route::determineActiveTrips() {
-  time_t currentTime = time(0);
+  time_t currentTime = Utils::getLocalTime();
   for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
     if ((*it)->getBeginTime() <= currentTime && (*it)->getEndTime() >= currentTime) {
+      (*it)->monitorTrip( this );
+      cout << "Monitoring Trip" << endl;
       activeTrips.push_back ((*it));
     }
   }
@@ -74,7 +77,6 @@ void Route::loadTrips() {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       Trip *trip = new Trip(c);
       trip->getBeginAndEndTime();
-      time_t beginTime = trip->getBeginTime();
       trips.push_back (trip);
       cout << "Trip Loaded" << endl;
     }
@@ -86,3 +88,11 @@ void Route::loadTrips() {
 Route::~Route() {
   TripList().swap(trips);
 }
+
+// Create a couple callbacks here that will fire from the trip class
+void Route::tripCompleted(Trip *trip) {
+  // Remove the trip from the activetTrips list
+ cout << "Removed Trip" << endl; 
+}
+
+

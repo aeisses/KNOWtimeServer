@@ -12,6 +12,8 @@
 #include "calendardate.h"
 #include "utils.h"
 
+class Route;
+
 using namespace std;
 using namespace pqxx;
 
@@ -54,6 +56,7 @@ class Trip {
     void getBeginAndEndTime();
     time_t getBeginTime();
     time_t getEndTime();
+    void monitorTrip( Route* );
 };
 
 #endif
