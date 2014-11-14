@@ -90,51 +90,60 @@ Calendar::~Calendar() {
 
 }
 
-bool Calendar::isMonday() {
-  if (monday == 1) {
-    return true;
-  }
-  return false;
+calendarDate Calendar::getStartDate() {
+  ostringstream convert;
+  convert << start_date;
+  return Utils::getCalendarDate(convert.str());
 }
 
-bool Calendar::isTuesday() {
-  if (tuesday == 1) {
-    return true;
-  }
-  return false;
+calendarDate Calendar::getEndDate() {
+  ostringstream convert;
+  convert << end_date;
+  return Utils::getCalendarDate(convert.str());
 }
 
-bool Calendar::isWednesday() {
-  if (wednesday == 1) {
-    return true;
-  }
-  return false;
-}
+bool Calendar::isValid() {
+  time_t currentTime = Utils::getLocalTime();
 
-bool Calendar::isThursday() {
-  if (thursday == 1) {
-    return true;
-  }
-  return false;
-}
+  tm *ltm = localtime(&currentTime);
 
-bool Calendar::isFriday() {
-  if (friday == 1) {
-    return true;
+  // Check the if the day of the week is valida
+  switch (ltm->tm_wday) {
+    case 0:
+      if (sunday != 1) return false; 
+      break;
+    case 1:
+      if (monday != 1) return false;
+      break;
+    case 2:
+      if (tuesday != 1) return false;
+      break;
+    case 3:
+      if (wednesday != 1) return false;
+      break;
+    case 4:
+      if (thursday != 1) return false;
+      break;
+    case 5:
+      if (friday != 1) return false;
+      break;
+    case 6:
+      if (saturday != 1) return false;
+      break;
   }
-  return false;
-}
 
-bool Calendar::isSaturday() {
-  if (saturday == 1) {
-    return true;
-  }
-  return false;
-}
+  // Check the time is in between the start_time and end_time
+  calendarDate startDate = getStartDate();
+  calendarDate endDate = getEndDate();
 
-bool Calendar::isSunday() {
-  if (sunday == 1) {
-    return true;
+  // Confirm the startDate is before the currentDate
+  if (!(startDate.year < ltm->tm_year+1900 || (startDate.year == ltm->tm_year+1900 && (startDate.month < ltm->tm_mon+1 || (startDate.month == ltm->tm_mon+1 && startDate.day <= ltm->tm_mday))))) {
+    return false;
   }
-  return false;
+
+  if (!(endDate.year > ltm->tm_year+1900 || (endDate.year == ltm->tm_year+1900 && (endDate.month > ltm->tm_mon+1 || (endDate.month == ltm->tm_mon+1 && endDate.day >= ltm->tm_mday))))) {
+    return false;
+  }
+
+  return true;
 }

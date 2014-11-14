@@ -3,6 +3,8 @@
 
 #include <string>
 #include <pqxx/pqxx>
+#include <sstream>
+#include "utils.h"
 
 using namespace std;
 using namespace pqxx;
@@ -17,21 +19,17 @@ class Calendar {
     int friday;
     int saturday;
     int sunday;
+    int start_date;
+    int end_date;
+    calendarDate getStartDate();
+    calendarDate getEndDate();
 
   public:
     string id;
-    int start_date;
-    int end_date;
     Calendar(string, int, int, int, int, int, int, int, int, int);
     Calendar(result::const_iterator);
     ~Calendar();
-    bool isMonday();
-    bool isTuesday();
-    bool isWednesday();
-    bool isThursday();
-    bool isFriday();
-    bool isSaturday();
-    bool isSunday();
+    bool isValid();
 };
 
 #endif

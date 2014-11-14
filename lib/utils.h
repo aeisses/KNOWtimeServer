@@ -8,11 +8,18 @@
 
 using namespace std;
 
+struct calendarDate {
+  int year;
+  int month;
+  int day;
+};
+
 class Utils {
 
   private:
 
   public:
+    static calendarDate getCalendarDate(string);
     static time_t getLocalTime();
     static time_t getDateFromTime(string);
 };

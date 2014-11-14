@@ -1,14 +1,28 @@
 #include "utils.h"
 
-// To figure out what is going on here make sure you reference:
-// http://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
+// Convert the string date in the format of YYYYMMDD to a struct
+calendarDate Utils::getCalendarDate(string date) {
+
+  calendarDate returnCalendarDate;
+  stringstream year(date.substr(0,4));
+  year >> returnCalendarDate.year;
+  stringstream month(date.substr(4,2));
+  month >> returnCalendarDate.month;
+  stringstream day(date.substr(6,2));
+  day >> returnCalendarDate.day;
+
+  return returnCalendarDate;
+}
 
 // Get the local time
 time_t Utils::getLocalTime() {
   time_t now = time(0);
-  now -= (3600*4444);
+  now -= (3600*4);
   return now;
 }
+
+// To figure out what is going on here make sure you reference:
+// http://www.tutorialspoint.com/cplusplus/cpp_date_time.htm
 
 // Take a string in the structure of HH:MM:SS, add that to today
 // and return the number of seconds since January 1, 1970

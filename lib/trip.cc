@@ -143,3 +143,18 @@ void Trip::monitorTrip(Route* route) {
   // Set a timer here that will fire when the trip has expired
   route->tripCompleted( this );
 }
+
+// We need to check if the trip is valid on the day
+bool Trip::isRunningToday() {
+
+  // If the Calendar object does not exist, return false
+  if (calendar == NULL) {
+    return false;
+  }
+
+  if (!calendar->isValid()) {
+    return false;
+  }
+
+  return true;
+}

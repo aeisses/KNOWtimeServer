@@ -1,14 +1,13 @@
 #include <route.h>
 
-
 // Private Methods
 void Route::determineActiveTrips() {
   time_t currentTime = Utils::getLocalTime();
   for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
-    if ((*it)->getBeginTime() <= currentTime && (*it)->getEndTime() >= currentTime) {
-      (*it)->monitorTrip( this );
-      cout << "Monitoring Trip" << endl;
+    if ((*it)->getBeginTime() <= currentTime && (*it)->getEndTime() >= currentTime && (*it)->isRunningToday()) {
       activeTrips.push_back ((*it));
+      (*it)->monitorTrip( this );
+      cout << "Monitoring Trip: " << (*it)->tripId << endl;
     }
   }
 }
@@ -78,7 +77,7 @@ void Route::loadTrips() {
       Trip *trip = new Trip(c);
       trip->getBeginAndEndTime();
       trips.push_back (trip);
-      cout << "Trip Loaded" << endl;
+//      cout << "Trip Loaded" << endl;
     }
   }
   determineActiveTrips();
@@ -92,7 +91,11 @@ Route::~Route() {
 // Create a couple callbacks here that will fire from the trip class
 void Route::tripCompleted(Trip *trip) {
   // Remove the trip from the activetTrips list
- cout << "Removed Trip" << endl; 
+  cout << "Trip Id: " << trip->tripId << endl;
+  cout << "Active List Size: " << activeTrips.size() << endl;
+  TripList::iterator it = find(activeTrips.begin(), activeTrips.end(), trip);
+  if (it != activeTrips.end()) {
+    activeTrips.erase(it);
+    cout << "Removed Trip" << endl; 
+  }
 }
-
-

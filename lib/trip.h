@@ -17,12 +17,6 @@ class Route;
 using namespace std;
 using namespace pqxx;
 
-struct less_than_key {
-  inline bool operator() (const StopTime i, const StopTime j) {
-    return ( i.stop_sequence < j.stop_sequence );
-  }
-};
-
 class Trip {
 
   private:
@@ -41,6 +35,12 @@ class Trip {
 //    typedef CalendarDateList::const_iterator cd_const_iterator;
     void getCalendarForTrip();
     void getCalendarDatesForTrip();
+    bool operator== (const Trip& lhs) {
+      if (lhs.tripId == this->tripId) {
+        return true;
+      }
+      return false;
+    }
 
   public:
     string routeId;
@@ -57,6 +57,7 @@ class Trip {
     time_t getBeginTime();
     time_t getEndTime();
     void monitorTrip( Route* );
+    bool isRunningToday();
 };
 
 #endif

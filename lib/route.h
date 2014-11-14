@@ -3,6 +3,7 @@
 
 #include <string>
 #include <pqxx/pqxx>
+#include <algorithm>
 #include "database.h"
 #include "trip.h"
 
