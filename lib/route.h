@@ -35,6 +35,8 @@ class Route {
     iterator begin() { return trips.begin(); };
     iterator end() { return trips.end(); };
     void tripCompleted( Trip* );
+    void watchNextTrip();
+    void updateTrips();
 };
 
 #endif

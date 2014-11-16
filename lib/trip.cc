@@ -114,7 +114,7 @@ void Trip::getBeginAndEndTime() {
 
   // Sort the vector on sequence number to ensure it is in order
 // TODO we will want to get this sort working at some point
-//  sort(&(*stoptimes.begin()), &(*stoptimes.end()), less_than_key());
+  sort(&(*stoptimes.begin()), &(*stoptimes.end()));
 
   // Get the first stop and the last stop
   beginTime = stoptimes[0];
@@ -130,23 +130,25 @@ void Trip::getBeginAndEndTime() {
 
 time_t Trip::getBeginTime() {
   return Utils::getDateFromTime(beginTime->arrival_time);
-//  return beginTime->arrival_time;
 }
 
 time_t Trip::getEndTime() {
   return Utils::getDateFromTime(endTime->arrival_time);
-//  return endTime->arrival_time;
 }
 
 // Monitor the trip and call back when the trip ends
 void Trip::monitorTrip(Route* route) {
-  // Set a timer here that will fire when the trip has expired
-  route->tripCompleted( this );
+  time_t currentTime = Utils::getLocalTime();
+  if (currentTime >= getEndTime()) {
+    route->tripCompleted( this );
+  } else {
+    // Move the trip forward
+    // TODO: not sure how to do this yet
+  }
 }
 
 // We need to check if the trip is valid on the day
 bool Trip::isRunningToday() {
-
   // If the Calendar object does not exist, return false
   if (calendar == NULL) {
     return false;
@@ -155,6 +157,5 @@ bool Trip::isRunningToday() {
   if (!calendar->isValid()) {
     return false;
   }
-
   return true;
 }

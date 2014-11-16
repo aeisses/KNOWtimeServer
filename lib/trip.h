@@ -56,8 +56,10 @@ class Trip {
     void getBeginAndEndTime();
     time_t getBeginTime();
     time_t getEndTime();
-    void monitorTrip( Route* );
+    void monitorTrip(Route*);
     bool isRunningToday();
+    void watchNextTrip();
+    void checkMonitoredTrips();
 };
 
 #endif

@@ -10,11 +10,16 @@ void Service::startService() {
   if (myResult.code == DB_SUCCESS) {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       Route *route = new Route(c);
+      cout << "Loading Route: " << route->id << endl;
       route->loadTrips();
       Service::routes.push_back (route);
       cout << "Finished Route: " << route->id << endl;
     } 
   }
+
+  // We want to run one timer, and run everything off the timer. The timer will execute every second
+
+
 
   // Loop through the routes and get the trips
 //  for (RouteList::iterator it = routes.begin(); it != routes.end(); ++it) {

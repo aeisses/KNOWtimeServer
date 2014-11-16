@@ -6,8 +6,6 @@ void Route::determineActiveTrips() {
   for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
     if ((*it)->getBeginTime() <= currentTime && (*it)->getEndTime() >= currentTime && (*it)->isRunningToday()) {
       activeTrips.push_back ((*it));
-      (*it)->monitorTrip( this );
-      cout << "Monitoring Trip: " << (*it)->tripId << endl;
     }
   }
 }
@@ -97,5 +95,23 @@ void Route::tripCompleted(Trip *trip) {
   if (it != activeTrips.end()) {
     activeTrips.erase(it);
     cout << "Removed Trip" << endl; 
+  }
+}
+
+// Determine if it time to start the next trip
+void Route::watchNextTrip() {
+  time_t currentTime = Utils::getLocalTime();
+  if (currentTime >= nextTrip->getEndTime()) {
+    activeTrips.push_back(nextTrip);
+    nextTrip = NULL;
+    determineNextTrip();
+  }
+}
+
+// Loop through the monitored trips 
+void Route::updateTrips() {
+  for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
+    (*it)->monitorTrip( this );
+    cout << "Monitoring Trip: " << (*it)->tripId << endl;
   }
 }
