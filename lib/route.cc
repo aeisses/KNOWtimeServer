@@ -6,6 +6,7 @@ void Route::determineActiveTrips() {
   for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
     if ((*it)->getBeginTime() <= currentTime && (*it)->getEndTime() >= currentTime && (*it)->isRunningToday()) {
       activeTrips.push_back ((*it));
+      (*it)->alignToCurrentStopTime();
     }
   }
 }

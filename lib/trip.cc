@@ -159,3 +159,29 @@ bool Trip::isRunningToday() {
   }
   return true;
 }
+
+// Get the next and previous stoptimes
+void Trip::alignToCurrentStopTime() {
+  time_t currentTime = Utils::getLocalTime();
+  for (StopTimeList::const_iterator c = stoptimes.begin(); c != stoptimes.end(); ++c) {
+    time_t stopTimeStartTime = Utils::getDateFromTime((*c)->arrival_time);
+    time_t stopTimeEndTime = Utils::getDateFromTime((*c)->departure_time);
+    if (stopTimeStartTime < currentTime && stopTimeEndTime > currentTime) {
+      currentStopTime = (*c);
+      StopTimeList::const_iterator next = c+1;
+      if (next != stoptimes.end()) {
+        nextStopTime = (*next);
+      }
+      break;
+    }
+  }
+}
+
+// Start the Trip at the beginning
+void Trip::start() {
+  currentStopTime = (*stoptimes.begin());
+  StopTimeList::const_iterator next = stoptimes.begin()+1;
+  if (next != stoptimes.end()) {
+    nextStopTime = (*next);
+  }
+}

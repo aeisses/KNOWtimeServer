@@ -20,13 +20,14 @@ using namespace pqxx;
 class Trip {
 
   private:
-//    bool compare (StopTime i, StopTime j) { return (i.stop_sequence < j.stop_sequence); };
     typedef vector<StopTime*> StopTimeList;
-// Uncomment when needed
-//    typedef StopTimeList::iterator st_terator;
+    StopTimeList stoptimes;
+//    typedef StopTimeList::iterator st_iterator;
 //    typedef StopTimeList::const_iterator st_const_iterator;
     StopTime *beginTime;
     StopTime *endTime;
+    StopTime *nextStopTime;
+    StopTime *currentStopTime;
     Calendar *calendar;
     typedef vector<CalendarDate*> CalendarDateList;
     CalendarDateList calendardates;
@@ -35,6 +36,7 @@ class Trip {
 //    typedef CalendarDateList::const_iterator cd_const_iterator;
     void getCalendarForTrip();
     void getCalendarDatesForTrip();
+    void loadStopTimes();
     bool operator== (const Trip& lhs) {
       if (lhs.tripId == this->tripId) {
         return true;
@@ -60,6 +62,8 @@ class Trip {
     bool isRunningToday();
     void watchNextTrip();
     void checkMonitoredTrips();
+    void alignToCurrentStopTime();
+    void start();
 };
 
 #endif
