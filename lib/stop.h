@@ -2,17 +2,43 @@
 #define STOP_H
 
 #include <string>
+#include <pqxx/pqxx>
 
 using namespace std;
+using namespace pqxx;
 
 class Stop {
   private:
-    string street;
-    string city;
-    string region;
-    string postcode;
-    string country;
-    string zone_id;
+    bool operator== (const Stop& lhs) {
+      if (this->id == lhs.id) {
+        return true;
+      }
+      return false;
+    }
+    bool operator<= (const Stop& lhs) {
+      if (this->id <= lhs.id) {
+        return true;
+      }
+      return false;
+    }
+    bool operator>= (const Stop& lhs) {
+      if (this->id >= lhs.id) {
+        return true;
+      }
+      return false;
+    }
+    bool operator< (const Stop& lhs) {
+      if (this->id < lhs.id) {
+        return true;
+      }
+      return false;
+    }
+    bool operator> (const Stop& lhs) {
+      if (this->id > lhs.id) {
+        return true;
+      }
+      return false;
+    }
 
   public:
     int id;
@@ -20,7 +46,15 @@ class Stop {
     string stop_desc;
     double lat;
     double lng;
-    Stop(int, string, string, double, double, string, string, string, string, string, string);
+    string street;
+    string city;
+    string region;
+    string postcode;
+    string country;
+    string zone_id;
+    Stop(int);
+    Stop(result::const_iterator);
+    ~Stop();
 };
 
 #endif
