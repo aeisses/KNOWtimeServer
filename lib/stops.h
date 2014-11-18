@@ -2,6 +2,8 @@
 #define STOPS_H
 
 #include <vector>
+#include <algorithm>
+#include <pqxx/pqxx>
 #include "database.h"
 #include "stop.h"
 

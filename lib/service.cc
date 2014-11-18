@@ -5,6 +5,16 @@ vector<Route*> Service::routes;
 void Service::startService() {
   // Start the service
 
+  // Load the stops
+  cout << "Load stops" << endl;
+  Stops::loadStops();
+  cout << "Finished loading stops" << endl;
+
+  // Load the paths
+  cout << "Load paths" << endl;
+  Paths::loadPaths();
+  cout << "Finished loading paths" << endl;
+
   // We need to get the routes
   queryResult myResult = DataBase::executeQuery("SELECT * FROM routes");
   if (myResult.code == DB_SUCCESS) {

@@ -5,6 +5,8 @@
 #include <vector>
 #include "route.h"
 #include "database.h"
+#include "paths.h"
+#include "stops.h"
 
 using namespace std;
 using namespace pqxx;
