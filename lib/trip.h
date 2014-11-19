@@ -49,10 +49,10 @@ class Trip {
     string serviceId;
     string tripId;
     string tripHeadSign;
-    string directionId;
+    int directionId;
     string blockId;
     string shapeId;
-    Trip(string, string, string, string, string, string, string);
+    Trip(string, string, string, string, int, string, string);
     Trip(result::const_iterator);
     ~Trip();
     void getBeginAndEndTime();

@@ -10,7 +10,7 @@
 // Private Methods
 // Get the calendar information for the trip
 void Trip::getCalendarForTrip() {
-  queryResult myResult = DataBase::executeQuery("SELECT * FROM calendar WHERE id='"+serviceId+"'");
+  queryResult myResult = DataBase::executeQuery("SELECT id,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date FROM calendar WHERE id='"+serviceId+"'");
   if (myResult.code == DB_SUCCESS) {
     // There should only be one result in this return vector
     if (myResult.R.size() == 1) {
@@ -22,7 +22,7 @@ void Trip::getCalendarForTrip() {
 
 // Get the calendarDates information for the trip
 void Trip::getCalendarDatesForTrip() {
-  queryResult myResult = DataBase::executeQuery("SELECT * FROM calendar_dates WHERE id='"+serviceId+"'");
+  queryResult myResult = DataBase::executeQuery("SELECT id,date,exception_type FROM calendar_dates WHERE id='"+serviceId+"'");
   if (myResult.code == DB_SUCCESS) {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       CalendarDate *calendarDate = new CalendarDate(c);
@@ -33,7 +33,7 @@ void Trip::getCalendarDatesForTrip() {
 
 // Public Methods
 // Trip Constructor
-Trip::Trip (string _routeId, string _serviceId, string _tripId, string _tripHeadSign, string _directionId, string _blockId, string _shapeId) {
+Trip::Trip (string _routeId, string _serviceId, string _tripId, string _tripHeadSign, int _directionId, string _blockId, string _shapeId) {
   routeId = _routeId;
   serviceId = _serviceId;
   tripId = _tripId;
@@ -72,9 +72,9 @@ Trip::Trip (result::const_iterator c) {
 
   // Get the directionId if the value is not null
   if (c[4].is_null()) {
-    directionId = "";
+    directionId = -1;
   } else {
-    directionId = c[4].as<string>();
+    directionId = c[4].as<int>();
   }
 
   // Get the blockId if the value is not null
@@ -104,7 +104,7 @@ void Trip::getBeginAndEndTime() {
   StopTimeList stoptimes;
 
   // Query the database
-  queryResult myResult = DataBase::executeQuery("SELECT * FROM stop_times WHERE trip_id='"+tripId+"'");
+  queryResult myResult = DataBase::executeQuery("SELECT id,arrival_time,departure_time,stop_id,stop_sequence,pickup_type,drop_off_type FROM stop_times WHERE id='"+tripId+"'");
   if (myResult.code == DB_SUCCESS) {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       StopTime *stopTime = new StopTime(c);

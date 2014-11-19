@@ -10,38 +10,26 @@ using namespace pqxx;
 class Stop {
   private:
     bool operator== (const Stop& lhs) {
-      if (this->id == lhs.id) {
-        return true;
-      }
-      return false;
-    }
-    bool operator<= (const Stop& lhs) {
-      if (this->id <= lhs.id) {
-        return true;
-      }
-      return false;
-    }
-    bool operator>= (const Stop& lhs) {
-      if (this->id >= lhs.id) {
-        return true;
-      }
-      return false;
-    }
-    bool operator< (const Stop& lhs) {
-      if (this->id < lhs.id) {
+      if (this->id.compare(lhs.id) == 0) {
         return true;
       }
       return false;
     }
     bool operator> (const Stop& lhs) {
-      if (this->id > lhs.id) {
+      if (this->id.compare(lhs.id) > 0) {
+        return true;
+      }
+      return false;
+    }
+    bool operator< (const Stop& lhs) {
+      if (this->id.compare(lhs.id) < 0) {
         return true;
       }
       return false;
     }
 
   public:
-    int id;
+    string id;
     string name;
     string stop_desc;
     double lat;
@@ -52,7 +40,7 @@ class Stop {
     string postcode;
     string country;
     string zone_id;
-    Stop(int);
+    Stop(string);
     Stop(result::const_iterator);
     ~Stop();
 };

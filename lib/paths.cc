@@ -3,7 +3,7 @@
 vector<Path*> Paths::paths;
 
 void Paths::loadPaths() {
-  queryResult myResult = DataBase::executeQuery("SELECT * FROM shapes");
+  queryResult myResult = DataBase::executeQuery("SELECT id,lat,long,sequence FROM shapes");
   if (myResult.code == DB_SUCCESS) {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       Path *path = new Path(c);

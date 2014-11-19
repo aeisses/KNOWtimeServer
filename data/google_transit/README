@@ -1,8 +1,20 @@
-To clean the data base and re-initialize
-
+------------------------------------------
+ To clean the data base and re-initialize
+-----------------------------------------
 From the Heroku postgres command line;
 heroku pg:psql
 
 execute the following command:
 \i ~/Heroku/KNOWtimeServer/data/google_transit/databasecreate.sql;
 \i ~/Heroku/KNOWtimeServer/data/google_transit/databaseclean.sql;
+
+--------------------------------
+ Updating the Google Tansit Data
+---------------------------------
+Download the latest google transit data: http://www.halifax.ca/metrotransit/GoogleTransitFeed/google_transit.zip
+
+Unzip the file and copy all the .txt files to the Heroku/KNOWtimeServer/data/google_transit
+
+Run the script createCSVfiles.sh to convert the .txt files to the .csv files.
+
+Re-initialize the Heroku database as described above. It is important to clean the database first.

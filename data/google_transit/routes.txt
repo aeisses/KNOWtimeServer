@@ -1,79 +1,155 @@
-route_id,route_short_name,route_long_name,route_desc,route_type
-1-167,1,"Spring Garden",,3
-2-167,2,"Wedgewood",,3
-4-167,4,"Rosedale",,3
-5-167,5,"Chebucto",,3
-6-167,6,"Quinpool",,3
-7-167,7,"Robie",,3
-9-167,9,"Barrington",,3
-10-167,10,"Dalhousie",,3
-11-167,11,"Dockyard",,3
-14-167,14,"Leiblin Park",,3
-15-167,15,"Purcell's Cove",,3
-16-167,16,"Parkland",,3
-17-167,17,"Saint Mary's",,3
-18-167,18,"Universities",,3
-19-167,19,"Greystone",,3
-20-167,20,"Herring Cove",,3
-21-167,21,"Lakeside / Timberlea",,3
-22-167,22,"Armdale / Mumford",,3
-23-167,23,"Timberlea / Mumford",,3
-31-167,31,"Main Express",,3
-32-167,32,"Cowie Hill Express",,3
-33-167,33,"Tantallon Express",,3
-34-167,34,"Glenbourne Express",,3
-35-167,35,"Parkland Express",,3
-41-167,41,"Dartmouth - Dalhousie",,3
-42-167,42,"Lacewood - Dalhousie",,3
-51-167,51,"Windmill",,3
-52-167,52,"Crosstown",,3
-53-167,53,"Notting Park",,3
-54-167,54,"Montebello",,3
-55-167,55,"Port Wallace",,3
-56-167,56,"Dartmouth Crossing",,3
-57-167,57,"Russell Lake",,3
-58-167,58,"Woodlawn",,3
-59-167,59,"Colby",,3
-60-167,60,"Eastern Passage / Heritage Hills",,3
-61-167,61,"Auburn - North Preston",,3
-62-167,62,"Wildwood",,3
-63-167,63,"Woodside",,3
-64-167,64,"Akerley",,3
-65-167,65,"Caldwell",,3
-66-167,66,"Penhorn",,3
-68-167,68,"Cherrybrook",,3
-72-167,72,"Portland Hills",,3
-78-167,78,"Wildwood Express",,3
-79-167,79,"Cole Harbour Express",,3
-80-167,80,"Sackville",,3
-81-167,81,"Hemlock Ravine",,3
-82-167,82,"Millwood",,3
-83-167,83,"Springfield",,3
-84-167,84,"Glendale Express",,3
-85-167,85,"Downsview Express",,3
-86-167,86,"Basinview Express",,3
-87-167,87,"Glendale",,3
-88-167,88,"Bedford Commons",,3
-89-167,89,"Bedford",,3
-90-167,90,"Larry Uteck",,3
-159-167,159,"Portland Hills LINK",,3
-185-167,185,"Sackville LINK",,3
-320-167,320,"Airport / Fall River",,3
-330-167,330,"Tantallon",,3
-370-167,370,"Porters Lake MetroX",,3
-400-167,400,"Beaver Bank",,3
-401-167,401,"Porters Lk, E.Preston, G.Desert",,3
-402-167,402,"Sambro",,3
-cp1-167,cp1,"Clayton Park Jr High",,3
-ecrl-167,ecrl,"RLTC Employee's Coach",,3
-ecs-167,ecs,"BTC Employee's Coach",,3
-FerD-154,FerD,"Dart / Hfx Ferry (Alderney)",,4
-FerW-154,FerW,"Dart / Hfx Ferry (Woodside)",,4
-fv01-167,fv01,"Fairview Jr High Sch",,3
-hwst-167,hwst,"Halifax West High Sch",,3
-s14-167,s14,"Cunard Jr High Sch (noon)",,3
-sp14-167,sp14,"Cunard Jr High Sch",,3
-sp53-167,sp53,"Dartmouth High Sch",,3
-sp58-167,sp58,"Prince Andrew High Sch",,3
-sp6-167,sp6,"Citadel High Sch",,3
-sp65-167,sp65,"Astral Jr High Sch",,3
+route_long_name,route_id,route_type,route_text_color,agency_id,route_color,route_url,route_desc,route_short_name
+Auburn - North Preston,61-175,3,,,,,,61
+Hemlock Ravine,81-175,3,,,,,,81
+Universities,18-175,3,,,,,,18
+Wildwood Express,78-175,3,,,,,,78
+Citadel High Sch,sp6-168,3,,,,,,sp6
+Glendale Express,84-175,3,,,,,,84
+Robie,7-168,3,,,,,,7
+Larry Uteck,90-175,3,,,,,,90
+Tantallon,330-175,3,,,,,,330
+Dockyard,11-175,3,,,,,,11
+Woodlawn,58-175,3,,,,,,58
+Purcell's Cove,15-168,3,,,,,,15
+Lakeside / Timberlea,21-168,3,,,,,,21
+Barrington,9-175,3,,,,,,9
+Armdale / Mumford,22-168,3,,,,,,22
+Prince Andrew High Sch,sp58-175,3,,,,,,sp58
+Airport / Fall River,320-168,3,,,,,,320
+Eastern Passage / Heritage Hills,60-168,3,,,,,,60
+Tantallon Express,33-175,3,,,,,,33
+Hemlock Ravine,81-168,3,,,,,,81
+Timberlea / Mumford,23-175,3,,,,,,23
+Dartmouth High Sch,sp53-175,3,,,,,,sp53
+Auburn - North Preston,61-168,3,,,,,,61
+Windmill,51-168,3,,,,,,51
+Akerley,64-168,3,,,,,,64
+Larry Uteck,90-168,3,,,,,,90
+Sambro,402-168,3,,,,,,402
+RLTC Employee's Coach,ecrl-168,3,,,,,,ecrl
+Barrington,9-168,3,,,,,,9
+Russell Lake,57-175,3,,,,,,57
+Spring Garden,1-168,3,,,,,,1
+Woodlawn,58-168,3,,,,,,58
+Purcell's Cove,15-175,3,,,,,,15
+Cunard Jr High Sch (noon),s14-168,3,,,,,,s14
+Penhorn,66-168,3,,,,,,66
+Bedford Commons,88-168,3,,,,,,88
+Glendale,87-168,3,,,,,,87
+Greystone,19-168,3,,,,,,19
+Chebucto,5-175,3,,,,,,5
+Portland Hills,72-175,3,,,,,,72
+Crosstown,52-175,3,,,,,,52
+Windmill,51-175,3,,,,,,51
+Millwood,82-168,3,,,,,,82
+Timberlea / Mumford,23-168,3,,,,,,23
+RLTC Employee's Coach,ecrl-175,3,,,,,,ecrl
+Dartmouth High Sch,sp53-168,3,,,,,,sp53
+Sackville LINK,185-168,3,,,,,,185
+Dart / Hfx Ferry (Woodside),FerW-154,4,,,,,,FerW
+Sambro,402-175,3,,,,,,402
+Saint Mary's,17-168,3,,,,,,17
+Penhorn,66-175,3,,,,,,66
+Clayton Park Jr High,cp1-168,3,,,,,,cp1
+Cunard Jr High Sch (noon),s14-175,3,,,,,,s14
+Portland Hills LINK,159-175,3,,,,,,159
+Crosstown,52-168,3,,,,,,52
+Dalhousie,10-175,3,,,,,,10
+Chebucto,5-168,3,,,,,,5
+Portland Hills,72-168,3,,,,,,72
+Bedford Commons,88-175,3,,,,,,88
+Greystone,19-175,3,,,,,,19
+Wildwood Express,78-168,3,,,,,,78
+Sackville LINK,185-175,3,,,,,,185
+Eastern Passage / Heritage Hills,60-175,3,,,,,,60
+Downsview Express,85-175,3,,,,,,85
+Millwood,82-175,3,,,,,,82
+Saint Mary's,17-175,3,,,,,,17
+Bedford,89-175,3,,,,,,89
+Main Express,31-175,3,,,,,,31
+Herring Cove,20-168,3,,,,,,20
+Clayton Park Jr High,cp1-175,3,,,,,,cp1
+Dart / Hfx Ferry (Alderney),FerD-154,4,,,,,,FerD
+Wildwood,62-168,3,,,,,,62
+"Porters Lk, E.Preston, G.Desert",401-175,3,,,,,,401
+Fairview Jr High Sch,fv01-168,3,,,,,,fv01
+Cunard Jr High Sch,sp14-168,3,,,,,,sp14
+Downsview Express,85-168,3,,,,,,85
+Glenbourne Express,34-175,3,,,,,,34
+Cherrybrook,68-168,3,,,,,,68
+Notting Park,53-168,3,,,,,,53
+Montebello,54-175,3,,,,,,54
+Cole Harbour Express,79-168,3,,,,,,79
+Bedford,89-168,3,,,,,,89
+Leiblin Park,14-175,3,,,,,,14
+Colby,59-168,3,,,,,,59
+Herring Cove,20-175,3,,,,,,20
+Glenbourne Express,34-168,3,,,,,,34
+Cunard Jr High Sch,sp14-175,3,,,,,,sp14
+"Porters Lk, E.Preston, G.Desert",401-168,3,,,,,,401
+Wildwood,62-175,3,,,,,,62
+Montebello,54-168,3,,,,,,54
+Beaver Bank,400-168,3,,,,,,400
+Notting Park,53-175,3,,,,,,53
+Cherrybrook,68-175,3,,,,,,68
+Woodside,63-175,3,,,,,,63
+Cole Harbour Express,79-175,3,,,,,,79
+Portland Hills LINK,159-168,3,,,,,,159
+Springfield,83-175,3,,,,,,83
+Halifax West High Sch,hwst-168,3,,,,,,hwst
+Wedgewood,2-168,3,,,,,,2
+Lacewood - Dalhousie,42-168,3,,,,,,42
+Porters Lake MetroX,370-168,3,,,,,,370
+Leiblin Park,14-168,3,,,,,,14
+Colby,59-175,3,,,,,,59
+Port Wallace,55-168,3,,,,,,55
+BTC Employee's Coach,ecs-175,3,,,,,,ecs
+Dartmouth Crossing,56-175,3,,,,,,56
+Springfield,83-168,3,,,,,,83
+Parkland,16-175,3,,,,,,16
+Parkland Express,35-168,3,,,,,,35
+Cowie Hill Express,32-175,3,,,,,,32
+Halifax West High Sch,hwst-175,3,,,,,,hwst
+Rosedale,4-168,3,,,,,,4
+Glendale,87-175,3,,,,,,87
+Armdale / Mumford,22-175,3,,,,,,22
+Wedgewood,2-175,3,,,,,,2
+Quinpool,6-175,3,,,,,,6
+Woodside,63-168,3,,,,,,63
+Universities,18-168,3,,,,,,18
+Basinview Express,86-168,3,,,,,,86
+Russell Lake,57-168,3,,,,,,57
+Prince Andrew High Sch,sp58-168,3,,,,,,sp58
+Porters Lake MetroX,370-175,3,,,,,,370
+Astral Jr High Sch,sp65-168,3,,,,,,sp65
+Dartmouth Crossing,56-168,3,,,,,,56
+Caldwell,65-175,3,,,,,,65
+BTC Employee's Coach,ecs-168,3,,,,,,ecs
+Tantallon Express,33-168,3,,,,,,33
+Sackville,80-168,3,,,,,,80
+Dartmouth - Dalhousie,41-175,3,,,,,,41
+Port Wallace,55-175,3,,,,,,55
+Beaver Bank,400-175,3,,,,,,400
+Lacewood - Dalhousie,42-175,3,,,,,,42
+Rosedale,4-175,3,,,,,,4
+Cowie Hill Express,32-168,3,,,,,,32
+Parkland,16-168,3,,,,,,16
+Parkland Express,35-175,3,,,,,,35
+Quinpool,6-168,3,,,,,,6
+Basinview Express,86-175,3,,,,,,86
+Dalhousie,10-168,3,,,,,,10
+Robie,7-175,3,,,,,,7
+Glendale Express,84-168,3,,,,,,84
+Citadel High Sch,sp6-175,3,,,,,,sp6
+Lakeside / Timberlea,21-175,3,,,,,,21
+Fairview Jr High Sch,fv01-175,3,,,,,,fv01
+Dockyard,11-168,3,,,,,,11
+Dartmouth - Dalhousie,41-168,3,,,,,,41
+Airport / Fall River,320-175,3,,,,,,320
+Tantallon,330-168,3,,,,,,330
+Spring Garden,1-175,3,,,,,,1
+Sackville,80-175,3,,,,,,80
+Astral Jr High Sch,sp65-175,3,,,,,,sp65
+Caldwell,65-168,3,,,,,,65
+Akerley,64-175,3,,,,,,64
+Main Express,31-168,3,,,,,,31

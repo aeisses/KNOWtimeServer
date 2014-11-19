@@ -1,0 +1,14 @@
+create table routes(id text primary key not null, short_name text, long_name text, route_desc text, type int);
+\copy routes from '/Users/aeisses/Heroku/KNOWtimeServer/data/google_transit/routes.csv' WITH CSV;
+create table trips(route_id text, service_id text, trip_id text primary key not null, trip_headsign text, direction_id text, block_id text, shape_id text);
+\copy trips from '/Users/aeisses/Heroku/KNOWtimeServer/data/google_transit/trips.csv' WITH CSV;
+create table stop_times(trip_id text, arrival_time text, departure_time text, stop_id int, stop_sequence int, pickup_type int, drop_off_type int);
+\copy stop_times from '/Users/aeisses/Heroku/KNOWtimeServer/data/google_transit/stop_times.csv' WITH CSV;
+create table stops(id int primary key not null, name text, stop_desc text, lat real, long real, street text, city text, region text, postcode text, country text, zone_id text);
+\copy stops from '/Users/aeisses/Heroku/KNOWtimeServer/data/google_transit/stops.csv' WITH CSV;
+create table shapes(id text, lat decimal, long decimal, sequence int, distanceTravelled text);
+\copy shapes from '/Users/aeisses/Heroku/KNOWtimeServer/data/google_transit/shapes.csv' WITH CSV;
+create table calendar_dates(id text, date int, exception_type int);
+\copy calendar_dates from '/Users/aeisses/Heroku/KNOWtimeServer/data/google_transit/calendar_dates.csv' WITH CSV;
+create table calendar(id text, monday int, tuesday int, wednesday int, thursday int, friday int, saturday int, sunday int, start_date int, end_date int);
+\copy calendar from '/Users/aeisses/Heroku/KNOWtimeServer/data/google_transit/calendar.csv' WITH CSV;

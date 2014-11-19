@@ -47,11 +47,11 @@ class StopTime {
     }
 
   public:
-    int stop_id;
+    string stop_id;
     string arrival_time;
     string departure_time;
     StopTime();
-    StopTime(string, string, string, int, int, int, int);
+    StopTime(string, string, string, string, int, int, int);
     StopTime(result::const_iterator);
     ~StopTime();
     void getArivalTime();

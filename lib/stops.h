@@ -18,7 +18,7 @@ class Stops {
 
   public:
     static void loadStops();
-    static Stop* getStop(int);
+    static Stop* getStop(string);
     static void clearStops();
 };
 

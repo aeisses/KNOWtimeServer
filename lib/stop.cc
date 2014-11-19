@@ -1,6 +1,6 @@
 #include "stop.h"
 
-Stop::Stop(int _id) {
+Stop::Stop(string _id) {
   id = _id;
   name = "";
   stop_desc = "";
@@ -18,9 +18,9 @@ Stop::Stop(result::const_iterator c) {
 
   // Get the id if the value is not NULL
   if (c[0].is_null()) {
-    id = 0;
+    id = "";
   } else {
-    id = c[0].as<int>();
+    id = c[0].as<string>();
   }
 
   // Get the name if the value is not NULL

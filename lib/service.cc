@@ -16,7 +16,7 @@ void Service::startService() {
   cout << "Finished loading paths" << endl;
 
   // We need to get the routes
-  queryResult myResult = DataBase::executeQuery("SELECT * FROM routes");
+  queryResult myResult = DataBase::executeQuery("SELECT id,short_name,long_name,route_desc,type FROM routes");
   if (myResult.code == DB_SUCCESS) {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       Route *route = new Route(c);
