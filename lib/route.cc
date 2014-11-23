@@ -71,7 +71,6 @@ Route::Route (string _id, string _shortName, string _longName, string _desc, int
 // Load the trips for this route
 void Route::loadTrips() {
   // Get the trips for this route
-  cout << "SELECT route_id,service_id,trip_id,trip_headsign,direction_id,block_id,shape_id FROM trips WHERE route_id='" << id << "'" << endl;
   queryResult myResult = DataBase::executeQuery("SELECT route_id,service_id,trip_id,trip_headsign,direction_id,block_id,shape_id FROM trips WHERE route_id='"+id+"'");
   if (myResult.code == DB_SUCCESS) {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
