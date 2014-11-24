@@ -14,6 +14,11 @@ struct calendarDate {
   int day;
 };
 
+struct Location {
+  double latitude;
+  double longitude;
+};
+
 class Utils {
 
   private:

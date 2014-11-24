@@ -31,6 +31,14 @@ void Trip::getCalendarDatesForTrip() {
   }
 }
 
+void Trip::setNextStopTime(StopTimeList::const_iterator next) {
+  if (next != stoptimes.end()) {
+    nextStopTime = (*next);
+  } else {
+    nextStopTime = NULL;
+  }
+}
+
 // Public Methods
 // Trip Constructor
 Trip::Trip (string _routeId, string _serviceId, string _tripId, string _tripHeadSign, int _directionId, string _blockId, string _shapeId) {
@@ -113,7 +121,6 @@ void Trip::getBeginAndEndTime() {
   }
 
   // Sort the vector on sequence number to ensure it is in order
-// TODO we will want to get this sort working at some point
   sort(&(*stoptimes.begin()), &(*stoptimes.end()));
 
   // Get the first stop and the last stop
@@ -143,7 +150,10 @@ void Trip::monitorTrip(Route* route) {
     route->tripCompleted( this );
   } else {
     // Move the trip forward
-    // TODO: not sure how to do this yet
+//    if (currentTime >= nextStopTime->getArivalTime()) {
+//      StopTimeList::iterator = find(stoptimes.begin(),stoptimes.end(),nextStopTime);
+//      currentStopTime = nextStopTime;
+//    }
   }
 }
 
@@ -168,10 +178,6 @@ void Trip::alignToCurrentStopTime() {
     time_t stopTimeEndTime = Utils::getDateFromTime((*c)->departure_time);
     if (stopTimeStartTime < currentTime && stopTimeEndTime > currentTime) {
       currentStopTime = (*c);
-      StopTimeList::const_iterator next = c+1;
-      if (next != stoptimes.end()) {
-        nextStopTime = (*next);
-      }
       break;
     }
   }
@@ -184,4 +190,9 @@ void Trip::start() {
   if (next != stoptimes.end()) {
     nextStopTime = (*next);
   }
+}
+
+// Get the current location of the bus on this trip
+Location* Trip::getCurrentLocationOnTrip() {
+  return NULL;
 }

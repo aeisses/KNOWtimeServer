@@ -11,6 +11,9 @@
 #include "calendar.h"
 #include "calendardate.h"
 #include "utils.h"
+#include "stops.h"
+#include "paths.h"
+#include "path.h"
 
 class Route;
 
@@ -22,8 +25,6 @@ class Trip {
   private:
     typedef vector<StopTime*> StopTimeList;
     StopTimeList stoptimes;
-//    typedef StopTimeList::iterator st_iterator;
-//    typedef StopTimeList::const_iterator st_const_iterator;
     StopTime *beginTime;
     StopTime *endTime;
     StopTime *nextStopTime;
@@ -31,18 +32,17 @@ class Trip {
     Calendar *calendar;
     typedef vector<CalendarDate*> CalendarDateList;
     CalendarDateList calendardates;
-// Uncomment when needed
-//    typedef CalendarDateList::iterator cd_iterator;
-//    typedef CalendarDateList::const_iterator cd_const_iterator;
     void getCalendarForTrip();
     void getCalendarDatesForTrip();
     void loadStopTimes();
+    void setNextStopTime(StopTimeList::const_iterator);
     bool operator== (const Trip& lhs) {
       if (lhs.tripId == this->tripId) {
         return true;
       }
       return false;
     }
+
 
   public:
     string routeId;
@@ -64,6 +64,7 @@ class Trip {
     void checkMonitoredTrips();
     void alignToCurrentStopTime();
     void start();
+    Location* getCurrentLocationOnTrip(); 
 };
 
 #endif
