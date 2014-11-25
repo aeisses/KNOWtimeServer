@@ -4,6 +4,7 @@
 #include <string>
 #include <pqxx/pqxx>
 #include "database.h"
+#include "utils.h"
 
 using namespace std;
 using namespace pqxx;
@@ -15,6 +16,8 @@ class StopTime {
     int stop_sequence;
     int pickup_type;
     int drop_off_type;
+    string arrival_time;
+    string departure_time;
     bool operator== (const StopTime& lhs) {
       if (this->stop_sequence == lhs.stop_sequence) {
         return true;
@@ -48,14 +51,12 @@ class StopTime {
 
   public:
     string stop_id;
-    string arrival_time;
-    string departure_time;
     StopTime();
     StopTime(string, string, string, string, int, int, int);
     StopTime(result::const_iterator);
     ~StopTime();
-    void getArivalTime();
-    void getDepartureTime();
+    time_t getArrivalTime();
+    time_t getDepartureTime();
 };
 
 #endif

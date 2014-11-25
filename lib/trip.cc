@@ -136,11 +136,11 @@ void Trip::getBeginAndEndTime() {
 }
 
 time_t Trip::getBeginTime() {
-  return Utils::getDateFromTime(beginTime->arrival_time);
+  return beginTime->getArrivalTime();
 }
 
 time_t Trip::getEndTime() {
-  return Utils::getDateFromTime(endTime->arrival_time);
+  return endTime->getArrivalTime();
 }
 
 // Monitor the trip and call back when the trip ends
@@ -150,10 +150,13 @@ void Trip::monitorTrip(Route* route) {
     route->tripCompleted( this );
   } else {
     // Move the trip forward
-//    if (currentTime >= nextStopTime->getArivalTime()) {
-//      StopTimeList::iterator = find(stoptimes.begin(),stoptimes.end(),nextStopTime);
-//      currentStopTime = nextStopTime;
-//    }
+    if (currentTime >= nextStopTime->getArrivalTime()) {
+      StopTimeList::iterator it = find(stoptimes.begin(),stoptimes.end(),nextStopTime);
+      if (it != stoptimes.end()) {
+        currentStopTime = nextStopTime;
+        nextStopTime = (*it);
+      }
+    }
   }
 }
 
@@ -174,8 +177,8 @@ bool Trip::isRunningToday() {
 void Trip::alignToCurrentStopTime() {
   time_t currentTime = Utils::getLocalTime();
   for (StopTimeList::const_iterator c = stoptimes.begin(); c != stoptimes.end(); ++c) {
-    time_t stopTimeStartTime = Utils::getDateFromTime((*c)->arrival_time);
-    time_t stopTimeEndTime = Utils::getDateFromTime((*c)->departure_time);
+    time_t stopTimeStartTime = (*c)->getArrivalTime();
+    time_t stopTimeEndTime = (*c)->getDepartureTime();
     if (stopTimeStartTime < currentTime && stopTimeEndTime > currentTime) {
       currentStopTime = (*c);
       break;

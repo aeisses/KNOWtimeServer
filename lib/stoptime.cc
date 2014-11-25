@@ -75,3 +75,11 @@ StopTime::StopTime (result::const_iterator c) {
 StopTime::~StopTime () {
 
 }
+
+time_t StopTime::getArrivalTime() {
+  return Utils::getDateFromTime(arrival_time);
+}
+
+time_t StopTime::getDepartureTime() {
+  return Utils::getDateFromTime(departure_time);
+}
