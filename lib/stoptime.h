@@ -50,7 +50,7 @@ class StopTime {
     }
 
   public:
-    string stop_id;
+    string stopId;
     StopTime();
     StopTime(string, string, string, string, int, int, int);
     StopTime(result::const_iterator);

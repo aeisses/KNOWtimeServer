@@ -4,8 +4,9 @@ Stop::Stop(string _id) {
   id = _id;
   name = "";
   stop_desc = "";
-  lat = 0.0;
-  lng = 0.0;
+  location = new Location();
+  location->latitude = -1;
+  location->longitude = -1;
   street = "";
   city = "";
   region = "";
@@ -37,18 +38,20 @@ Stop::Stop(result::const_iterator c) {
     stop_desc = c[2].as<string>();
   }
 
+  location = new Location();
+
   // Get the lat if the value is not NULL
   if (c[3].is_null()) {
-    lat = 0.0;
+    location->latitude = -1;
   } else {
-    lat = c[3].as<double>();
+    location->latitude = c[3].as<double>();
   }
 
   // Get the lng if the value is not NULL
   if (c[4].is_null()) {
-    lng = 0.0;
+    location->longitude = -1;
   } else {
-    lng = c[4].as<double>();
+    location->longitude = c[4].as<double>();
   }
 
   // Get the street if the value is not NULL
@@ -95,6 +98,10 @@ Stop::Stop(result::const_iterator c) {
 }
 
 Stop::~Stop() {
+  delete location;
+}
 
+Location* Stop::getLocation() {
+  return location;
 }
 

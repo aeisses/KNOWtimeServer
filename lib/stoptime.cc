@@ -4,7 +4,7 @@ StopTime::StopTime () {
   trip_id = "";
   arrival_time = "";
   departure_time = "";
-  stop_id = "0";
+  stopId = "0";
   stop_sequence = 0;
   pickup_type = 0;
   drop_off_type = 0;
@@ -14,7 +14,7 @@ StopTime::StopTime (string _trip_id, string _arrival_time, string _departure_tim
   trip_id = _trip_id;
   arrival_time = _arrival_time;
   departure_time = _departure_time;
-  stop_id = _stop_id;
+  stopId = _stop_id;
   stop_sequence = _stop_sequence;
   pickup_type = _pickup_type;
   drop_off_type = _drop_off_type;
@@ -43,11 +43,11 @@ StopTime::StopTime (result::const_iterator c) {
     departure_time = c[2].as<string>();
   }
 
-  // Get the stop_id if the value is not null
+  // Get the stopId if the value is not null
   if (c[3].is_null()) {
-    stop_id = "";
+    stopId = "";
   } else {
-    stop_id = c[3].as<string>();
+    stopId = c[3].as<string>();
   }
 
   // Get the stop_sequence if the value is not null

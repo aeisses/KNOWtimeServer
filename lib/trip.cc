@@ -39,14 +39,19 @@ void Trip::setNextStopTime(StopTimeList::const_iterator next) {
   }
 }
 
+// Load the Path in from the static path class
+void Trip::loadPath() {
+  currentPath = Paths::getPath(shapeId);
+}
+
 // Public Methods
 // Trip Constructor
-Trip::Trip (string _routeId, string _serviceId, string _tripId, string _tripHeadSign, int _directionId, string _blockId, string _shapeId) {
+Trip::Trip (string _routeId, string _serviceId, string _tripId, string _tripHeadSign, int _direction, string _blockId, string _shapeId) {
   routeId = _routeId;
   serviceId = _serviceId;
   tripId = _tripId;
   tripHeadSign = _tripHeadSign;
-  directionId = _directionId;
+  direction = _direction;
   blockId = _blockId;
   shapeId = _shapeId;
 }
@@ -78,11 +83,11 @@ Trip::Trip (result::const_iterator c) {
     tripHeadSign = c[3].as<string>();
   }
 
-  // Get the directionId if the value is not null
+  // Get the direction if the value is not null
   if (c[4].is_null()) {
-    directionId = -1;
+    direction = -1;
   } else {
-    directionId = c[4].as<int>();
+    direction = c[4].as<int>();
   }
 
   // Get the blockId if the value is not null
@@ -133,6 +138,9 @@ void Trip::getBeginAndEndTime() {
 
   // Free the vector
   vector<StopTime*>().swap(stoptimes);
+
+  // Load the path
+  loadPath();
 }
 
 time_t Trip::getBeginTime() {
@@ -181,6 +189,15 @@ void Trip::alignToCurrentStopTime() {
     time_t stopTimeEndTime = (*c)->getDepartureTime();
     if (stopTimeStartTime < currentTime && stopTimeEndTime > currentTime) {
       currentStopTime = (*c);
+      Stop *currentStop = Stops::getStop(currentStopTime->stopId);
+      currentStopPoint = currentPath->getPathElementForStop(currentStop->getLocation(), currentPath->pathElements.begin(), direction);
+      delete currentStop;
+      if (c+1 != stoptimes.end()) {
+        nextStopTime = (*(c+1));
+        Stop *nextStop = Stops::getStop(nextStopTime->stopId);
+        nextStopPoint = currentPath->getPathElementForStop(nextStop->getLocation(), currentStopPoint, direction);
+        delete nextStop;
+      }
       break;
     }
   }
@@ -189,13 +206,21 @@ void Trip::alignToCurrentStopTime() {
 // Start the Trip at the beginning
 void Trip::start() {
   currentStopTime = (*stoptimes.begin());
+  Location *startLocation;
+  startLocation->latitude = -1;
+  startLocation->longitude = -1;
+  currentStopPoint = currentPath->getPathElementForStop(startLocation, currentPath->pathElements.begin(), direction);
   StopTimeList::const_iterator next = stoptimes.begin()+1;
   if (next != stoptimes.end()) {
     nextStopTime = (*next);
+    Stop *nextStop = Stops::getStop(nextStopTime->stopId);
+    nextStopPoint = currentPath->getPathElementForStop(nextStop->getLocation(), currentStopPoint, direction);
+    delete nextStop;
   }
 }
 
 // Get the current location of the bus on this trip
 Location* Trip::getCurrentLocationOnTrip() {
+  // TODO need to add something here
   return NULL;
 }

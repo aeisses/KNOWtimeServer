@@ -30,12 +30,16 @@ class Trip {
     StopTime *nextStopTime;
     StopTime *currentStopTime;
     Calendar *calendar;
+    Path *currentPath;
+    PathElements::const_iterator nextStopPoint;
+    PathElements::const_iterator currentStopPoint;
     typedef vector<CalendarDate*> CalendarDateList;
     CalendarDateList calendardates;
     void getCalendarForTrip();
     void getCalendarDatesForTrip();
     void loadStopTimes();
     void setNextStopTime(StopTimeList::const_iterator);
+    void loadPath();
     bool operator== (const Trip& lhs) {
       if (lhs.tripId == this->tripId) {
         return true;
@@ -43,13 +47,12 @@ class Trip {
       return false;
     }
 
-
   public:
     string routeId;
     string serviceId;
     string tripId;
     string tripHeadSign;
-    int directionId;
+    int direction;
     string blockId;
     string shapeId;
     Trip(string, string, string, string, int, string, string);

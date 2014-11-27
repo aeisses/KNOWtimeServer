@@ -17,7 +17,7 @@ class Paths {
 
   public:
     static void loadPaths();
-    static Path* getPaths(string);
+    static Path* getPath(string);
     static void clearPaths();
 };
 

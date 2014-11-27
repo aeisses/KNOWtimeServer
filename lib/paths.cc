@@ -23,7 +23,7 @@ void Paths::loadPaths() {
   }
 }
 
-Path* Paths::getPaths(string id) {
+Path* Paths::getPath(string id) {
   Path *path = new Path(id);
   PathList::iterator it = find(paths.begin(), paths.end(), path);
   if (it != paths.end()) {
