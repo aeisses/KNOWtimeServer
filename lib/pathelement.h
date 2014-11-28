@@ -3,6 +3,7 @@
 
 #include <string>
 #include <pqxx/pqxx>
+#include "utils.h"
 
 using namespace std;
 using namespace pqxx;
@@ -10,6 +11,7 @@ using namespace pqxx;
 class PathElement {
 
   private:
+    Location *location;
     bool operator== (const PathElement& lhs) {
       if (this->sequence == lhs.sequence) {
         return true;
@@ -30,12 +32,11 @@ class PathElement {
     }
 
   public:
-    double lat;
-    double lng;
     int sequence;
     PathElement(double, double);
     PathElement(result::const_iterator);
     ~PathElement();
+    Location* getLocation();
 };
 
 #endif

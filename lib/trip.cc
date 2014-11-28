@@ -221,6 +221,19 @@ void Trip::start() {
 
 // Get the current location of the bus on this trip
 Location* Trip::getCurrentLocationOnTrip() {
-  // TODO need to add something here
-  return NULL;
+  Location *returnLocation;
+
+  int stopLocationDiff = nextStopPoint - currentStopPoint;
+  time_t stopTimeStartTime = currentStopTime->getArrivalTime();
+  time_t stopTimeEndTime = nextStopTime->getDepartureTime();
+  time_t timeDiff = stopTimeEndTime - stopTimeStartTime;
+  time_t timeInterval = timeDiff/stopLocationDiff;
+  time_t currentTime = Utils::getLocalTime();
+
+  for (int i = 1; i<=stopLocationDiff; i++) {
+    if (((timeInterval*i) + stopTimeStartTime) > currentTime) {
+      returnLocation = (*(currentStopPoint+i-1))->getLocation();
+    }
+  }
+  return returnLocation;
 }

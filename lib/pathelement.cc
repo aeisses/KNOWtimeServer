@@ -1,25 +1,28 @@
 #include "path.h"
 
 PathElement::PathElement(double _lat, double _lng) {
-  lat = _lat;
-  lng = _lng;
+  location = new Location();
+  location->latitude = _lat;
+  location->longitude = _lng;
   sequence = 0;
 }
 
 PathElement::PathElement(result::const_iterator c) {
-  
+  // Create a new location
+  location = new Location();
+
   // Get the lat if the value is not NULL
   if (c[1].is_null()) {
-    lat = 0.0;
+    location->latitude = -1;
   } else {
-    lat = c[1].as<double>();
+    location->latitude = c[1].as<double>();
   }
   
   // Get the lng if the value is not NULL
   if (c[2].is_null()) {
-    lng = 0.0;
+    location->longitude = -1;
   } else {
-    lng = c[2].as<double>();
+    location->longitude = c[2].as<double>();
   }
 
   // Get the squence if the value is not NULL
@@ -31,5 +34,9 @@ PathElement::PathElement(result::const_iterator c) {
 }
 
 PathElement::~PathElement() {
+  delete location;
+}
 
+Location* PathElement::getLocation() {
+  return location;
 }

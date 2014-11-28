@@ -47,7 +47,8 @@ PathElements::const_iterator Path::getPathElementForStop(Location *location, Pat
       return pathElements.begin();
     }
     for (PathElements::const_iterator it = startIterator; it != pathElements.end(); ++it) {
-      if (reducePercision((*it)->lat) == reducePercision(location->latitude) && reducePercision((*it)->lng) == reducePercision(location->longitude)) {
+      Location *elementLocation = (*it)->getLocation();
+      if (reducePercision(elementLocation->latitude) == reducePercision(location->latitude) && reducePercision(elementLocation->longitude) == reducePercision(location->longitude)) {
         return it;
       }
     }
@@ -56,7 +57,8 @@ PathElements::const_iterator Path::getPathElementForStop(Location *location, Pat
       return pathElements.end();
     }
     for (PathElements::const_iterator it = startIterator; it != pathElements.begin(); ++it) {
-      if (reducePercision((*it)->lat) == reducePercision(location->latitude) && reducePercision((*it)->lng) == reducePercision(location->longitude)) {
+      Location *elementLocation = (*it)->getLocation();
+      if (reducePercision(elementLocation->latitude) == reducePercision(location->latitude) && reducePercision(elementLocation->longitude) == reducePercision(location->longitude)) {
         return it;
       }
     }
