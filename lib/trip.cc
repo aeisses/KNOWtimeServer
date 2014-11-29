@@ -44,6 +44,10 @@ void Trip::loadPath() {
   currentPath = Paths::getPath(shapeId);
 }
 
+bool Trip::sortBySequence(const StopTime &lhs, const StopTime &rhs) {
+  return lhs.stop_sequence < rhs.stop_sequence;
+}
+
 // Public Methods
 // Trip Constructor
 Trip::Trip (string _routeId, string _serviceId, string _tripId, string _tripHeadSign, int _direction, string _blockId, string _shapeId) {
@@ -107,15 +111,13 @@ Trip::Trip (result::const_iterator c) {
 
 // Destructor
 Trip::~Trip() {
-
+  // Free the vector
+  vector<StopTime*>().swap(stoptimes);
 }
 
 // Get the being time and end time for the trip
 // This information comes from the stop_times
 void Trip::getBeginAndEndTime() {
-  // Vector to store the information
-  StopTimeList stoptimes;
-
   // Query the database
   queryResult myResult = DataBase::executeQuery("SELECT id,arrival_time,departure_time,stop_id,stop_sequence,pickup_type,drop_off_type FROM stop_times WHERE id='"+tripId+"'");
   if (myResult.code == DB_SUCCESS) {
@@ -124,9 +126,10 @@ void Trip::getBeginAndEndTime() {
       stoptimes.push_back (stopTime);
     }
   }
-
+  cout << "Trip Loaded" << endl;
   // Sort the vector on sequence number to ensure it is in order
-  sort(&(*stoptimes.begin()), &(*stoptimes.end()));
+  // TODO This sort is not working.... Need to look into this..... Dubs will know how to do this for now it is ok
+//  sort(stoptimes.begin(), stoptimes.end());
 
   // Get the first stop and the last stop
   beginTime = stoptimes[0];
@@ -135,9 +138,6 @@ void Trip::getBeginAndEndTime() {
   // Get the calendar and the calendar dates for the trip
   getCalendarForTrip();
   getCalendarDatesForTrip();
-
-  // Free the vector
-  vector<StopTime*>().swap(stoptimes);
 
   // Load the path
   loadPath();
@@ -158,13 +158,22 @@ void Trip::monitorTrip(Route* route) {
     route->tripCompleted( this );
   } else {
     // Move the trip forward
+    cout << "Moving the trip forward" << endl;
+    cout << "Current Time: " << currentTime << endl;
+    cout << "NextStopTime: " << nextStopTime->getArrivalTime() << endl;
     if (currentTime >= nextStopTime->getArrivalTime()) {
+      cout << "In the of statement" << endl;
       StopTimeList::iterator it = find(stoptimes.begin(),stoptimes.end(),nextStopTime);
+      cout << "Found the stop time iterator" << endl;
       if (it != stoptimes.end()) {
+        cout << "Moving things one" << endl;
         currentStopTime = nextStopTime;
+        cout << "Two" << endl;
         nextStopTime = (*it);
+        cout << "Three" << endl;
       }
     }
+    cout << "Done moving the trip forward" << endl;
   }
 }
 
@@ -183,19 +192,24 @@ bool Trip::isRunningToday() {
 
 // Get the next and previous stoptimes
 void Trip::alignToCurrentStopTime() {
+  cout << "Aliging to current stop times" << endl;
   time_t currentTime = Utils::getLocalTime();
+  cout << "StopTimesVector: " << stoptimes.size() << endl;
   for (StopTimeList::const_iterator c = stoptimes.begin(); c != stoptimes.end(); ++c) {
     time_t stopTimeStartTime = (*c)->getArrivalTime();
-    time_t stopTimeEndTime = (*c)->getDepartureTime();
-    if (stopTimeStartTime < currentTime && stopTimeEndTime > currentTime) {
+    time_t stopNextTimeStartTime = (*c+1)->getArrivalTime();
+    cout << "CurrentTime: " << currentTime << " StopStartTime: " << stopTimeStartTime << " NextStopStartTime: " << stopNextTimeStartTime << endl;
+    if (stopTimeStartTime < currentTime && stopNextTimeStartTime > currentTime) {
       currentStopTime = (*c);
       Stop *currentStop = Stops::getStop(currentStopTime->stopId);
       currentStopPoint = currentPath->getPathElementForStop(currentStop->getLocation(), currentPath->pathElements.begin(), direction);
+      cout << "CurrentStopPoint " << (*currentStopPoint)->sequence << endl;
       delete currentStop;
       if (c+1 != stoptimes.end()) {
         nextStopTime = (*(c+1));
         Stop *nextStop = Stops::getStop(nextStopTime->stopId);
         nextStopPoint = currentPath->getPathElementForStop(nextStop->getLocation(), currentStopPoint, direction);
+        cout << "NextStopPoint Lat: " << (*currentStopPoint)->sequence << endl;
         delete nextStop;
       }
       break;
@@ -206,10 +220,11 @@ void Trip::alignToCurrentStopTime() {
 // Start the Trip at the beginning
 void Trip::start() {
   currentStopTime = (*stoptimes.begin());
-  Location *startLocation;
+  Location *startLocation = new Location();
   startLocation->latitude = -1;
   startLocation->longitude = -1;
   currentStopPoint = currentPath->getPathElementForStop(startLocation, currentPath->pathElements.begin(), direction);
+  delete startLocation;
   StopTimeList::const_iterator next = stoptimes.begin()+1;
   if (next != stoptimes.end()) {
     nextStopTime = (*next);
@@ -219,9 +234,15 @@ void Trip::start() {
   }
 }
 
+// End the trip
+void Trip::end() {
+  delete currentStopTime;
+  delete nextStopTime;
+}
+
 // Get the current location of the bus on this trip
 Location* Trip::getCurrentLocationOnTrip() {
-  Location *returnLocation;
+  Location *returnLocation = new Location();
 
   int stopLocationDiff = nextStopPoint - currentStopPoint;
   time_t stopTimeStartTime = currentStopTime->getArrivalTime();

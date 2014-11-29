@@ -40,6 +40,7 @@ class Trip {
     void loadStopTimes();
     void setNextStopTime(StopTimeList::const_iterator);
     void loadPath();
+    bool sortBySequence(const StopTime&, const StopTime&);
     bool operator== (const Trip& lhs) {
       if (lhs.tripId == this->tripId) {
         return true;
@@ -63,10 +64,9 @@ class Trip {
     time_t getEndTime();
     void monitorTrip(Route*);
     bool isRunningToday();
-    void watchNextTrip();
-    void checkMonitoredTrips();
     void alignToCurrentStopTime();
     void start();
+    void end();
     Location* getCurrentLocationOnTrip(); 
 };
 

@@ -4,3 +4,5 @@ TODO
 Clean up memory issues
 Finish the tracking of the bus on the shape.
 Start testing somethings... This will take some time.
+
+Figure out why sorting is not working....

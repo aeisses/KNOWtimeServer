@@ -80,6 +80,7 @@ void Route::loadTrips() {
     }
   }
   determineActiveTrips();
+  determineNextTrip();
 }
 
 // Destructor
@@ -94,6 +95,7 @@ void Route::tripCompleted(Trip *trip) {
   cout << "Active List Size: " << activeTrips.size() << endl;
   TripList::iterator it = find(activeTrips.begin(), activeTrips.end(), trip);
   if (it != activeTrips.end()) {
+    (*it)->end();
     activeTrips.erase(it);
     cout << "Removed Trip" << endl; 
   }
@@ -104,6 +106,10 @@ void Route::watchNextTrip() {
   time_t currentTime = Utils::getLocalTime();
   if (currentTime >= nextTrip->getEndTime()) {
     activeTrips.push_back(nextTrip);
+    // Start the trip
+    nextTrip->start();
+
+    // Find the next trip
     nextTrip = NULL;
     determineNextTrip();
   }
@@ -111,8 +117,11 @@ void Route::watchNextTrip() {
 
 // Loop through the monitored trips 
 void Route::updateTrips() {
-  for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
+  for (TripList::const_iterator it = activeTrips.begin(); it != activeTrips.end(); ++it) {
+    cout << "Updating Trips" << endl;
     (*it)->monitorTrip( this );
     cout << "Monitoring Trip: " << (*it)->tripId << endl;
+    Location *location = (*it)->getCurrentLocationOnTrip();
+    cout << "Location Lat: " << location->latitude << " Longitude: " << location->longitude << endl;
   }
 }

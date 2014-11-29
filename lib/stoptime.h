@@ -13,7 +13,6 @@ class StopTime {
     
   private:
     string trip_id;
-    int stop_sequence;
     int pickup_type;
     int drop_off_type;
     string arrival_time;
@@ -42,7 +41,7 @@ class StopTime {
       }
       return false;
     }
-    bool operator< (const StopTime& lhs) {
+    bool operator < (const StopTime& lhs) {
       if (this->stop_sequence < lhs.stop_sequence) {
         return true;
       }
@@ -51,6 +50,7 @@ class StopTime {
 
   public:
     string stopId;
+    int stop_sequence;
     StopTime();
     StopTime(string, string, string, string, int, int, int);
     StopTime(result::const_iterator);
