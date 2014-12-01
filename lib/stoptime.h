@@ -17,36 +17,6 @@ class StopTime {
     int drop_off_type;
     string arrival_time;
     string departure_time;
-    bool operator== (const StopTime& lhs) {
-      if (this->stop_sequence == lhs.stop_sequence) {
-        return true;
-      }
-      return false;
-    }
-    bool operator<= (const StopTime& lhs) {
-      if (this->stop_sequence <= lhs.stop_sequence) {
-        return true;
-      }
-      return false;
-    }
-    bool operator>= (const StopTime& lhs) {
-      if (this->stop_sequence >= lhs.stop_sequence) {
-        return true;
-      }
-      return false;
-    }
-    bool operator> (const StopTime& lhs) {
-      if (this->stop_sequence > lhs.stop_sequence) {
-        return true;
-      }
-      return false;
-    }
-    bool operator < (const StopTime& lhs) {
-      if (this->stop_sequence < lhs.stop_sequence) {
-        return true;
-      }
-      return false;
-    }
 
   public:
     string stopId;
@@ -57,6 +27,11 @@ class StopTime {
     ~StopTime();
     time_t getArrivalTime();
     time_t getDepartureTime();
+    bool operator== (const StopTime&);
+    bool operator<= (const StopTime&);
+    bool operator>= (const StopTime&);
+    bool operator> (const StopTime&);
+    bool operator< (const StopTime&);
 };
 
 #endif

@@ -93,7 +93,12 @@ void Route::tripCompleted(Trip *trip) {
   // Remove the trip from the activetTrips list
   cout << "Trip Id: " << trip->tripId << endl;
   cout << "Active List Size: " << activeTrips.size() << endl;
-  TripList::iterator it = find(activeTrips.begin(), activeTrips.end(), trip);
+  TripList::iterator it;
+  for (it = activeTrips.begin(); it != activeTrips.end(); ++it) {
+    if ((trip->tripId).compare((*it)->tripId) == 0) {
+      break;
+    }
+  }
   if (it != activeTrips.end()) {
     (*it)->end();
     activeTrips.erase(it);

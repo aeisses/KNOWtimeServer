@@ -8,9 +8,14 @@ void Paths::loadPaths() {
     for (result::const_iterator c = myResult.R.begin(); c != myResult.R.end(); ++c) {
       if (!c[0].is_null()) {
         Path *checkPath = new Path(c[0].as<string>());
-        PathList::iterator it = find(paths.begin(), paths.end(), checkPath);
+        PathList::iterator it;
+        for (it = paths.begin(); it != paths.end(); ++it) {
+          if ((checkPath->id).compare((*it)->id) == 0) {
+            break;
+          }
+        }
         if (it != paths.end()) {
-          (*it)->addElement(c);
+            (*it)->addElement(c);
         } else {
           Path *path = new Path(c);
           paths.push_back (path);
@@ -24,10 +29,10 @@ void Paths::loadPaths() {
 }
 
 Path* Paths::getPath(string id) {
-  Path *path = new Path(id);
-  PathList::iterator it = find(paths.begin(), paths.end(), path);
-  if (it != paths.end()) {
-    return (*it);
+  for (PathList::const_iterator it = paths.begin(); it != paths.end(); ++it) {
+    if (id.compare((*it)->id) == 0) {
+      return (*it);
+    }
   }
   return NULL;
 }

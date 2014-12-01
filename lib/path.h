@@ -16,24 +16,6 @@ class Path {
 
   private:
     double reducePercision(double);
-    bool operator== (const Path& lhs) {
-      if (this->id.compare(lhs.id) == 0) {
-        return true;
-      }
-      return false;
-    }
-    bool operator> (const Path& lhs) {
-      if (this->id.compare(lhs.id) > 0) {
-        return true;
-      }
-      return false;
-    }
-    bool operator< (const Path& lhs) {
-      if (this->id.compare(lhs.id) < 0) {
-        return true;
-      }
-      return false;
-    }
 
   public:
     PathElements pathElements;
@@ -45,6 +27,9 @@ class Path {
     void addElement(result::const_iterator);
     void sortPathElements();
     PathElements::const_iterator getPathElementForStop(Location*, PathElements::const_iterator, int);
+    bool operator== (const Path&);
+    bool operator> (const Path&);
+    bool operator< (const Path&);
 };
 
 #endif

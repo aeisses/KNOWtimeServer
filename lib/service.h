@@ -7,6 +7,7 @@
 #include "database.h"
 #include "paths.h"
 #include "stops.h"
+#include "stop.h"
 
 using namespace std;
 using namespace pqxx;

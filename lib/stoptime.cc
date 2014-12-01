@@ -83,3 +83,39 @@ time_t StopTime::getArrivalTime() {
 time_t StopTime::getDepartureTime() {
   return Utils::getDateFromTime(departure_time);
 }
+
+bool StopTime::operator== (const StopTime& lhs) {
+  if (this->stop_sequence == lhs.stop_sequence) {
+    return true;
+  }
+  return false;
+}
+
+bool StopTime::operator<= (const StopTime& lhs) {
+  if (this->stop_sequence <= lhs.stop_sequence) {
+    return true;
+  }
+  return false;
+}
+
+bool StopTime::operator>= (const StopTime& lhs) {
+  if (this->stop_sequence >= lhs.stop_sequence) {
+    return true;
+  }
+  return false;
+}
+
+bool StopTime::operator> (const StopTime& lhs) {
+  if (this->stop_sequence > lhs.stop_sequence) {
+    return true;
+  }
+  return false;
+}
+
+bool StopTime::operator< (const StopTime& lhs) {
+  if (this->stop_sequence < lhs.stop_sequence) {
+    return true;
+  }
+  return false;
+}
+

@@ -40,3 +40,25 @@ PathElement::~PathElement() {
 Location* PathElement::getLocation() {
   return location;
 }
+
+bool PathElement::operator== (const PathElement& lhs) {
+  if (this->sequence == lhs.sequence) {
+    return true;
+  }
+  return false;
+}
+
+bool PathElement::operator> (const PathElement& lhs) {
+  if (this->sequence > lhs.sequence) {
+    return true;
+  }
+  return false;
+}
+
+bool PathElement::operator< (const PathElement& lhs) {
+  if (this->sequence < lhs.sequence) {
+    return true;
+  }
+  return false;
+}
+

@@ -41,12 +41,6 @@ class Trip {
     void setNextStopTime(StopTimeList::const_iterator);
     void loadPath();
     bool sortBySequence(const StopTime&, const StopTime&);
-    bool operator== (const Trip& lhs) {
-      if (lhs.tripId == this->tripId) {
-        return true;
-      }
-      return false;
-    }
 
   public:
     string routeId;
@@ -68,6 +62,7 @@ class Trip {
     void start();
     void end();
     Location* getCurrentLocationOnTrip(); 
+    bool operator== (const Trip&);
 };
 
 #endif

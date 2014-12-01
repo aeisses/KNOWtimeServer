@@ -14,10 +14,10 @@ void Stops::loadStops() {
 }
 
 Stop* Stops::getStop(string stopId) {
-  Stop *stop = new Stop(stopId);
-  StopList::iterator it = find(stops.begin(), stops.end(), stop);
-  if (it != stops.end()) {
-    return (*it);
+  for (StopList::const_iterator it = stops.begin(); it != stops.end(); ++it) {
+    if (stopId.compare((*it)->id) == 0) {
+      return (*it);
+    }
   }
   return NULL;
 }

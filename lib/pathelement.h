@@ -12,24 +12,6 @@ class PathElement {
 
   private:
     Location *location;
-    bool operator== (const PathElement& lhs) {
-      if (this->sequence == lhs.sequence) {
-        return true;
-      }
-      return false;
-    }
-    bool operator> (const PathElement& lhs) {
-      if (this->sequence > lhs.sequence) {
-        return true;
-      }
-      return false;
-    }
-    bool operator< (const PathElement& lhs) {
-      if (this->sequence < lhs.sequence) {
-        return true;
-      }
-      return false;
-    }
 
   public:
     int sequence;
@@ -37,6 +19,9 @@ class PathElement {
     PathElement(result::const_iterator);
     ~PathElement();
     Location* getLocation();
+    bool operator== (const PathElement&);
+    bool operator> (const PathElement&);
+    bool operator< (const PathElement&);
 };
 
 #endif
