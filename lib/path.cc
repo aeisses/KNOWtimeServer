@@ -2,7 +2,7 @@
 
 // Private Methods
 double Path::reducePercision(double value) {
-  return static_cast<float>( static_cast<int>(value*1000) ) / 1000;
+  return (double)(((int)(value*1000) ) / 1000);
 }
 
 // Public Methods
@@ -50,20 +50,28 @@ PathElements::const_iterator Path::getPathElementForStop(Location *location, Pat
       return pathElements.begin();
     }
     for (PathElements::const_iterator it = startIterator; it != pathElements.end(); ++it) {
-      Location *elementLocation = (*it)->getLocation();
+      Location *elementLocation = new Location();
+      elementLocation->latitude = (*it)->getLocation()->latitude;
+      elementLocation->longitude = (*it)->getLocation()->longitude;
       if (reducePercision(elementLocation->latitude) == reducePercision(location->latitude) && reducePercision(elementLocation->longitude) == reducePercision(location->longitude)) {
+        delete elementLocation;
         return it;
       }
+      delete elementLocation;
     }
   } else if (direction == 1) {
     if (location->latitude == -1 && location->longitude == -1) {
       return pathElements.end();
     }
-    for (PathElements::const_iterator it = startIterator; it != pathElements.begin(); ++it) {
-      Location *elementLocation = (*it)->getLocation();
+    for (PathElements::const_iterator it = startIterator; it != pathElements.begin(); --it) {
+      Location *elementLocation = new Location();
+      elementLocation->latitude = (*it)->getLocation()->latitude;
+      elementLocation->longitude = (*it)->getLocation()->longitude;
       if (reducePercision(elementLocation->latitude) == reducePercision(location->latitude) && reducePercision(elementLocation->longitude) == reducePercision(location->longitude)) {
+        delete elementLocation;
         return it;
       }
+      delete elementLocation;
     }
   }
   // Need something better here

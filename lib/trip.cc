@@ -35,7 +35,7 @@ void Trip::setNextStopTime(StopTimeList::const_iterator next) {
   if (next != stoptimes.end()) {
     nextStopTime = (*next);
   } else {
-    nextStopTime = NULL;
+    nextStopTime = 0;
   }
 }
 
@@ -107,12 +107,39 @@ Trip::Trip (result::const_iterator c) {
   } else {
     shapeId = c[6].as<string>();
   }
+
+  beginTime = 0;
+  endTime = 0;
+  nextStopTime = 0;
+  currentStopTime = 0;
+  calendar = 0;
+  currentPath = 0;
 }
 
 // Destructor
 Trip::~Trip() {
   // Free the vector
   vector<StopTime*>().swap(stoptimes);
+
+  if (beginTime) {
+    delete beginTime;
+  }
+  if (endTime) {
+    delete endTime;
+  }
+  if (nextStopTime) {
+    delete nextStopTime;
+  }
+  if (currentStopTime) {
+    delete currentStopTime;
+  }
+  if (calendar) {
+    delete calendar;
+  }
+  if (currentPath) {
+    delete currentPath;
+  }
+  
 }
 
 // Get the being time and end time for the trip
@@ -158,26 +185,37 @@ void Trip::monitorTrip(Route* route) {
     route->tripCompleted( this );
   } else {
     // Move the trip forward
-    cout << "Moving the trip forward" << endl;
-    cout << "Current Time: " << currentTime << endl;
-    cout << "NextStopTime: " << nextStopTime->getArrivalTime() << endl;
+   // cout << "Moving the trip forward" << endl;
+//    cout << "Current Time: " << currentTime << endl;
+//    cout << "NextStopTime: " << nextStopTime->getArrivalTime() << endl;
     if (currentTime >= nextStopTime->getArrivalTime()) {
-      cout << "In the of statement" << endl;
+//      cout << "In the of statement" << endl;
       StopTimeList::iterator it;
       for (it = stoptimes.begin(); it != stoptimes.end(); ++it) {
         if (nextStopTime->stop_sequence == (*it)->stop_sequence) {
-          cout << "Found the stop time iterator" << endl;
+//          cout << "Found the stop time iterator" << endl;
           break;
         }
       }
-      if (it != stoptimes.end()) {
-        cout << "Moving things one" << endl;
+      if ((it+1) != stoptimes.end()) {
+ //       cout << "Moving things one" << endl;
         currentStopTime = nextStopTime;
-        cout << "Two" << endl;
-        nextStopTime = (*it);
-        cout << "Three" << endl;
+ //       cout << "Two" << endl;
+        nextStopTime = (*(it+1));
+ //       cout << "Three" << endl;
+      } else if ((it+1) == stoptimes.end()) {
+        currentStopTime = nextStopTime;
       }
     }
+    Stop *currentStop = Stops::getStop(currentStopTime->stopId);
+    cout << "Current Stop: " << currentStop->id << endl;
+    cout << "Current Stop Point: " << (*currentStopPoint)->sequence << endl;
+    currentStopPoint = currentPath->getPathElementForStop(currentStop->getLocation(), currentStopPoint, direction);
+    cout << "Current Stop Point: " << (*currentStopPoint)->sequence << endl;
+    Stop *nextStop = Stops::getStop(nextStopTime->stopId);
+    cout << "Next Stop: " << nextStop->id << endl;
+    nextStopPoint = currentPath->getPathElementForStop(nextStop->getLocation(), currentStopPoint, direction);
+    cout << "Next Stop Point: " << (*nextStopPoint)->sequence << endl;
     cout << "Done moving the trip forward" << endl;
   }
 }
@@ -214,13 +252,12 @@ void Trip::alignToCurrentStopTime() {
         cout << "Current Path: " << currentPath->id << endl;
         currentStopPoint = currentPath->getPathElementForStop(currentStop->getLocation(), currentPath->pathElements.begin(), direction);
         cout << "CurrentStopPoint " << (*currentStopPoint)->sequence << endl;
-        delete currentStop;
         if (c+1 != stoptimes.end()) {
           nextStopTime = (*(c+1));
+          cout << "NexTime Stop ID: " << nextStopTime->stopId << endl;
           Stop *nextStop = Stops::getStop(nextStopTime->stopId);
           nextStopPoint = currentPath->getPathElementForStop(nextStop->getLocation(), currentStopPoint, direction);
-          cout << "NextStopPoint Lat: " << (*currentStopPoint)->sequence << endl;
-          delete nextStop;
+          cout << "NextStopPoint Sequence: " << (*nextStopPoint)->sequence << endl;
         }
         break;
       }
@@ -241,7 +278,7 @@ void Trip::start() {
     nextStopTime = (*next);
     Stop *nextStop = Stops::getStop(nextStopTime->stopId);
     nextStopPoint = currentPath->getPathElementForStop(nextStop->getLocation(), currentStopPoint, direction);
-    delete nextStop;
+//    delete nextStop;
   }
 }
 
@@ -255,16 +292,38 @@ void Trip::end() {
 Location* Trip::getCurrentLocationOnTrip() {
   Location *returnLocation = new Location();
 
-  int stopLocationDiff = nextStopPoint - currentStopPoint;
+  cout << "Current Stop Time: " << currentStopTime->stopId << endl;
+  cout << "Next Stop Time: " << nextStopTime->stopId << endl;
+  cout << "Next Stop Point: " << (*nextStopPoint)->sequence << endl;
+  cout << "Current Stop Point: " << (*currentStopPoint)->sequence << endl;
+  int stopLocationDiff = abs(nextStopPoint - currentStopPoint);
+  cout << "STOPLOCATIONDiff: " << stopLocationDiff << endl;
   time_t stopTimeStartTime = currentStopTime->getArrivalTime();
+  cout << "StopTimeStartTime: " << stopTimeStartTime << endl;
   time_t stopTimeEndTime = nextStopTime->getDepartureTime();
+  cout << "StopTimeEndTime: " << stopTimeEndTime << endl;
   time_t timeDiff = stopTimeEndTime - stopTimeStartTime;
-  time_t timeInterval = timeDiff/stopLocationDiff;
+  cout << "timeDiff: " << timeDiff << endl;
+  time_t timeInterval = 0;
+  if (timeDiff != 0) {
+    timeInterval = (time_t)(timeDiff/stopLocationDiff);
+    if (timeInterval == 0) {
+      timeInterval = 1;
+    }
+  }
+  cout << "TimeInterval: " << timeInterval << endl;
   time_t currentTime = Utils::getLocalTime();
+  cout << "CurrentTime: " << currentTime << endl;
 
   for (int i = 1; i<=stopLocationDiff; i++) {
     if (((timeInterval*i) + stopTimeStartTime) > currentTime) {
-      returnLocation = (*(currentStopPoint+i-1))->getLocation();
+      cout << "Found return Location with i: " << i << endl;
+      if (direction) {
+        returnLocation = (*(currentStopPoint-i-1))->getLocation();
+      } else {
+        returnLocation = (*(currentStopPoint+i-1))->getLocation();
+      }
+       break;
     }
   }
   return returnLocation;

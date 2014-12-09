@@ -15,10 +15,19 @@ void Route::determineActiveTrips() {
 void Route::determineNextTrip() {
   time_t currentTime = time(0);
   for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
-    if ((*it)->getBeginTime() >= currentTime && (nextTrip == NULL || nextTrip->getBeginTime() < (*it)->getBeginTime())) {
-      nextTrip = (*it);
+    if ((*it)->getBeginTime() >= currentTime) {
+      if (!nextTrip) {
+        cout << "Found next trip zero" << endl;
+        cout << "Begin Time: " << (*it)->getBeginTime() << endl;
+        nextTrip = (*it);
+        cout << "Begin Time: " << nextTrip->getBeginTime() << endl;
+      } else if (nextTrip->getBeginTime() < (*it)->getBeginTime()) {
+        cout << "Found next trip" << endl;
+        nextTrip = (*it);
+      }
     }
   }
+  cout << "Finished next trip" << endl;
 }
 
 // Public Methods
@@ -58,6 +67,8 @@ Route::Route (result::const_iterator c) {
   } else {
     type = c[4].as<int>();
   }
+
+  nextTrip = 0;
 }
 
 Route::Route (string _id, string _shortName, string _longName, string _desc, int _type) {
@@ -86,6 +97,9 @@ void Route::loadTrips() {
 // Destructor
 Route::~Route() {
   TripList().swap(trips);
+  if (nextTrip) {
+    delete nextTrip;
+  }
 }
 
 // Create a couple callbacks here that will fire from the trip class
