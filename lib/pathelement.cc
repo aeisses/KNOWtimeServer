@@ -15,7 +15,7 @@ PathElement::PathElement(result::const_iterator c) {
   if (c[1].is_null()) {
     location->latitude = -1;
   } else {
-    location->latitude = c[1].as<double>();
+    location->latitude = c[1].as<long double>();
   }
   
   // Get the lng if the value is not NULL

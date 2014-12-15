@@ -15,7 +15,7 @@ void Paths::loadPaths() {
           }
         }
         if (it != paths.end()) {
-            (*it)->addElement(c);
+          (*it)->addElement(c);
         } else {
           Path *path = new Path(c);
           paths.push_back (path);
@@ -23,9 +23,9 @@ void Paths::loadPaths() {
       }
     }
   }
-  for (PathList::const_iterator it = paths.begin(); it != paths.end(); ++it) {
-    (*it)->sortPathElements();
-  }
+//  for (PathList::const_iterator it = paths.begin(); it != paths.end(); ++it) {
+//    (*it)->sortPathElements();
+//  }
 }
 
 Path* Paths::getPath(string id) {

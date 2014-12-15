@@ -4,6 +4,7 @@
 #include <string>
 #include <pqxx/pqxx>
 #include "utils.h"
+#include <sstream>
 
 using namespace std;
 using namespace pqxx;

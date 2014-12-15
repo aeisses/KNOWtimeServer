@@ -2,7 +2,9 @@
 
 // Private Methods
 double Path::reducePercision(double value) {
-  return (double)(((int)(value*1000) ) / 1000);
+  int tempValue = value * 1000;
+  rint(tempValue);
+  return (double)(tempValue / (double)(1000.0));
 }
 
 // Public Methods
@@ -42,38 +44,47 @@ void Path::sortPathElements() {
 
 // Get the path element that is located on a stop. We need to reduce the presision of the long and lat to ensure we get a match
 PathElements::const_iterator Path::getPathElementForStop(Location *location, PathElements::const_iterator startIterator, int direction) {
+  cout.precision(20);
   cout << "location lat: " << location->latitude << " long: " << location->longitude << endl;
   cout << "Start Iterator: " << (*startIterator)->sequence << endl;
-  cout << "Direction: " << direction << endl;
-  if (direction == 0) {
+//  cout << "Direction: " << direction << endl;
+//  if (direction == 0) {
     if (location->latitude == -1 && location->longitude == -1) {
       return pathElements.begin();
     }
+    cout << "Path Elements Size: " << pathElements.size() << endl;
     for (PathElements::const_iterator it = startIterator; it != pathElements.end(); ++it) {
       Location *elementLocation = new Location();
       elementLocation->latitude = (*it)->getLocation()->latitude;
       elementLocation->longitude = (*it)->getLocation()->longitude;
+//      cout << "Element Latitude: " << reducePercision(elementLocation->latitude) << " Longitude: " << reducePercision(elementLocation->longitude) << endl;
+//      cout << "Location Latitude: " << reducePercision(location->latitude) << " Longitude: " << reducePercision(location->longitude) << endl;
       if (reducePercision(elementLocation->latitude) == reducePercision(location->latitude) && reducePercision(elementLocation->longitude) == reducePercision(location->longitude)) {
         delete elementLocation;
+        cout << "Found value" << endl;
         return it;
       }
       delete elementLocation;
     }
-  } else if (direction == 1) {
+/*  } else if (direction == 1) {
     if (location->latitude == -1 && location->longitude == -1) {
       return pathElements.end();
     }
+    cout << "Path Elements Size: " << pathElements.size() << endl;
     for (PathElements::const_iterator it = startIterator; it != pathElements.begin(); --it) {
       Location *elementLocation = new Location();
       elementLocation->latitude = (*it)->getLocation()->latitude;
       elementLocation->longitude = (*it)->getLocation()->longitude;
+//      cout << "Element Latitude: " << elementLocation->latitude << " Longitude: " << elementLocation->longitude << endl;
+//      cout << "Location Latitude: " << location->latitude << " Longitude: " << location->longitude << endl;
       if (reducePercision(elementLocation->latitude) == reducePercision(location->latitude) && reducePercision(elementLocation->longitude) == reducePercision(location->longitude)) {
         delete elementLocation;
+        cout << "Found value" << endl;
         return it;
       }
       delete elementLocation;
-    }
-  }
+    }*/
+//  }
   // Need something better here
   return pathElements.begin();
 }

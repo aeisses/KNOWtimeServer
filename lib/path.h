@@ -4,6 +4,7 @@
 #include <string>
 #include <pqxx/pqxx>
 #include <algorithm>
+#include <cmath>
 #include "pathelement.h"
 #include "utils.h"
 

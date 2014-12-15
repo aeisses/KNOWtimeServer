@@ -250,7 +250,11 @@ void Trip::alignToCurrentStopTime() {
         Stop *currentStop = Stops::getStop(currentStopTime->stopId);
         cout << "Made it to three with StopId: " << currentStop->id << " Direction: " << direction << endl;
         cout << "Current Path: " << currentPath->id << endl;
-        currentStopPoint = currentPath->getPathElementForStop(currentStop->getLocation(), currentPath->pathElements.begin(), direction);
+//        if (direction == 0) {
+          currentStopPoint = currentPath->getPathElementForStop(currentStop->getLocation(), currentPath->pathElements.begin(), direction);
+//        } else if (direction == 1) {
+//          currentStopPoint = currentPath->getPathElementForStop(currentStop->getLocation(), (currentPath->pathElements.end()-1), direction);
+//        }
         cout << "CurrentStopPoint " << (*currentStopPoint)->sequence << endl;
         if (c+1 != stoptimes.end()) {
           nextStopTime = (*(c+1));
