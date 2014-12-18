@@ -24,6 +24,7 @@ void Route::determineNextTrip() {
       } else if (nextTrip->getBeginTime() < (*it)->getBeginTime()) {
         cout << "Found next trip" << endl;
         nextTrip = (*it);
+        cout << "Done next trip" << endl;
       }
     }
   }
@@ -142,6 +143,7 @@ void Route::updateTrips() {
     (*it)->monitorTrip( this );
     cout << "Monitoring Trip: " << (*it)->tripId << endl;
     Location *location = (*it)->getCurrentLocationOnTrip();
+    cout << "One bus" << endl;
     Service::updateBus((*it)->tripId, id, location);
   }
 }

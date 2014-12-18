@@ -325,11 +325,11 @@ Location* Trip::getCurrentLocationOnTrip() {
   for (int i = 1; i<=stopLocationDiff; i++) {
     if (((timeInterval*i) + stopTimeStartTime) > currentTime) {
       cout << "Found return Location with i: " << i << endl;
-      if (direction) {
-        returnLocation = (*(currentStopPoint-i-1))->getLocation();
-      } else {
+//      if (direction) {
+//        returnLocation = (*(currentStopPoint-i-1))->getLocation();
+//      } else {
         returnLocation = (*(currentStopPoint+i-1))->getLocation();
-      }
+//      }
        break;
     }
   }

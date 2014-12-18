@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "database.h"
 #include "trip.h"
+#include "service.h"
 
 using namespace std;
 using namespace pqxx;

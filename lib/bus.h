@@ -2,11 +2,12 @@
 #define BUS_H
 
 #include <string>
+#include <node.h>
 #include "utils.h"
 
 using namespace std;
 
-class Bus {
+class Bus : public node::ObjectWrap {
   private:
 
   public:
@@ -16,6 +17,8 @@ class Bus {
     Bus(string, string, Location*);
     ~Bus();
     void updateLocation(Location*);
+    double getLatitude();
+    double getLongitude();
 };
 
 #endif

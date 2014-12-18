@@ -19,7 +19,14 @@ Bus::~Bus() {
 void Bus::updateLocation(Location *_location) {
   if (_location->latitude != 0 && _location->longitude != 0) {
     location->latitude = _location->latitude;
-    loacation->longitude = _location->longitude;
+    location->longitude = _location->longitude;
   }
 }
 
+double Bus::getLatitude() {
+  return location->latitude;
+}
+
+double Bus::getLongitude() {
+  return location->longitude;
+}

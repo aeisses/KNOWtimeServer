@@ -32,7 +32,7 @@ void Service::startService() {
 
   // Loop through the routes and get the trips
   int i = 0;
-  while (i<100) {
+  while (i<5) {
     cout << "Attempting to update Trips" << endl;
     for (RouteList::iterator it = routes.begin(); it != routes.end(); ++it) {
       cout << "RouteId: " << (*it)->id << endl;
@@ -47,16 +47,27 @@ void Service::startService() {
 
 void Service::updateBus(string tripId, string route, Location *location) {
   BusList::iterator it;
+  cout << "TripId: " << tripId << " Route: " << route << endl;
+  cout << "Bus two" << endl;
+  cout << "BUses Size: " << buses.size() << endl;
   for (it = buses.begin(); it != buses.end(); ++it) {
-    if ((*it)->route == route && (*it)->tripId == tripId) {
+    cout << "Bus two five" << endl;
+    cout << "IT Route: " << (*it)->route << endl;
+    cout << "IT Trip: " << (*it)->tripId << endl;
+    if ((*it)->route.compare(route) == 0 && (*it)->tripId.compare(tripId) == 0) {
+      cout << "Bus update location" << endl;
       (*it)->updateLocation(location);
+      cout << "Bus two point five" << endl;
       break;
     }
   }
+  cout << "Bus three" << endl;
   if (it == buses.end()) {
+    cout << "Adding bus" << endl;
     Bus *bus = new Bus(tripId, route, location);
-    buses.push(bus);
-    delete bus;
+    cout << "Three one" << endl;
+    buses.push_back(bus);
+    //delete bus;
   }
   cout << "Location Lat: " << location->latitude << " Longitude: " << location->longitude << endl;
 }
@@ -70,3 +81,6 @@ void Service::removeBus(string tripId, string route) {
   }
 }
 
+//vector<Bus*> Service::getBuses {
+//  return buses;
+//}
