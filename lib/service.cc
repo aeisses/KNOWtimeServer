@@ -1,6 +1,7 @@
 #include "service.h"
 
 vector<Route*> Service::routes;
+vector<Bus*> Service::buses;
 
 void Service::startService() {
   // Start the service
@@ -43,3 +44,29 @@ void Service::startService() {
     i++;
   }
 }
+
+void Service::updateBus(string tripId, string route, Location *location) {
+  BusList::iterator it;
+  for (it = buses.begin(); it != buses.end(); ++it) {
+    if ((*it)->route == route && (*it)->tripId == tripId) {
+      (*it)->updateLocation(location);
+      break;
+    }
+  }
+  if (it == buses.end()) {
+    Bus *bus = new Bus(tripId, route, location);
+    buses.push(bus);
+    delete bus;
+  }
+  cout << "Location Lat: " << location->latitude << " Longitude: " << location->longitude << endl;
+}
+
+void Service::removeBus(string tripId, string route) {
+  for (BusList::iterator it = buses.begin(); it != buses.end(); ++it) {
+    if ((*it)->route == route && (*it)->tripId == tripId) {
+      buses.erase(it);
+      break;
+    }
+  }
+}
+

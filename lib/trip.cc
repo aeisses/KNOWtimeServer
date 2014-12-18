@@ -301,6 +301,9 @@ Location* Trip::getCurrentLocationOnTrip() {
   cout << "Next Stop Point: " << (*nextStopPoint)->sequence << endl;
   cout << "Current Stop Point: " << (*currentStopPoint)->sequence << endl;
   int stopLocationDiff = abs(nextStopPoint - currentStopPoint);
+  if (stopLocationDiff == 0) {
+    stopLocationDiff = 1;
+  }
   cout << "STOPLOCATIONDiff: " << stopLocationDiff << endl;
   time_t stopTimeStartTime = currentStopTime->getArrivalTime();
   cout << "StopTimeStartTime: " << stopTimeStartTime << endl;

@@ -12,6 +12,7 @@
                     "lib/calendar.cc", 
                     "lib/calendardate.cc",
                     "lib/utils.cc",
+                    "lib/bus.cc",
                     "lib/path.cc",
                     "lib/paths.cc",
                     "lib/stop.cc",

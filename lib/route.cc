@@ -115,6 +115,7 @@ void Route::tripCompleted(Trip *trip) {
   }
   if (it != activeTrips.end()) {
     (*it)->end();
+    Service::removeBus((*it)->tripId, id);
     activeTrips.erase(it);
     cout << "Removed Trip" << endl; 
   }
@@ -141,6 +142,6 @@ void Route::updateTrips() {
     (*it)->monitorTrip( this );
     cout << "Monitoring Trip: " << (*it)->tripId << endl;
     Location *location = (*it)->getCurrentLocationOnTrip();
-    cout << "Location Lat: " << location->latitude << " Longitude: " << location->longitude << endl;
+    Service::updateBus((*it)->tripId, id, location);
   }
 }
