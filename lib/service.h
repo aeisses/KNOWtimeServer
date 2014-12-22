@@ -22,7 +22,6 @@ class Service {
 
   public:
     static void startService();
-//    static vector<Bus*> getBuses();
     typedef RouteList::iterator iterator;
     typedef RouteList::const_iterator const_iterator;
     iterator begin() { return routes.begin(); }

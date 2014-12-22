@@ -6,7 +6,7 @@ void Route::determineActiveTrips() {
   for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
     if ((*it)->getBeginTime() <= currentTime && (*it)->getEndTime() >= currentTime && (*it)->isRunningToday()) {
       activeTrips.push_back ((*it));
-      cout << "Found an active route" << endl;
+      cout << "---- Found an active route ----" << endl;
       (*it)->alignToCurrentStopTime();
     }
   }
@@ -17,18 +17,13 @@ void Route::determineNextTrip() {
   for (TripList::const_iterator it = trips.begin(); it != trips.end(); ++it) {
     if ((*it)->getBeginTime() >= currentTime) {
       if (!nextTrip) {
-        cout << "Found next trip zero" << endl;
-        cout << "Begin Time: " << (*it)->getBeginTime() << endl;
         nextTrip = (*it);
-        cout << "Begin Time: " << nextTrip->getBeginTime() << endl;
       } else if (nextTrip->getBeginTime() < (*it)->getBeginTime()) {
-        cout << "Found next trip" << endl;
         nextTrip = (*it);
-        cout << "Done next trip" << endl;
       }
     }
   }
-  cout << "Finished next trip" << endl;
+  cout << "---- Finished determining next trip ----" << endl;
 }
 
 // Public Methods
@@ -106,8 +101,6 @@ Route::~Route() {
 // Create a couple callbacks here that will fire from the trip class
 void Route::tripCompleted(Trip *trip) {
   // Remove the trip from the activetTrips list
-  cout << "Trip Id: " << trip->tripId << endl;
-  cout << "Active List Size: " << activeTrips.size() << endl;
   TripList::iterator it;
   for (it = activeTrips.begin(); it != activeTrips.end(); ++it) {
     if ((trip->tripId).compare((*it)->tripId) == 0) {
@@ -118,7 +111,6 @@ void Route::tripCompleted(Trip *trip) {
     (*it)->end();
     Service::removeBus((*it)->tripId, id);
     activeTrips.erase(it);
-    cout << "Removed Trip" << endl; 
   }
 }
 
@@ -139,11 +131,9 @@ void Route::watchNextTrip() {
 // Loop through the monitored trips 
 void Route::updateTrips() {
   for (TripList::const_iterator it = activeTrips.begin(); it != activeTrips.end(); ++it) {
-    cout << "Updating Trips" << endl;
+    cout << "---- Updating Trips ----" << endl;
     (*it)->monitorTrip( this );
-    cout << "Monitoring Trip: " << (*it)->tripId << endl;
     Location *location = (*it)->getCurrentLocationOnTrip();
-    cout << "One bus" << endl;
     Service::updateBus((*it)->tripId, id, location);
   }
 }

@@ -22,8 +22,6 @@ queryResult DataBase::executeQuery(string query) {
     // Execute the SQL query
     result R( N.exec( query ));
 
-//    cout << "Operation done sucessfully" << endl;
-    
     myResult.code = DB_SUCCESS;
     myResult.R = R;
 

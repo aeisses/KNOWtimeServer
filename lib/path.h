@@ -14,7 +14,6 @@ using namespace pqxx;
 typedef vector<PathElement*> PathElements;
 
 class Path {
-
   private:
     double reducePercision(double);
 
