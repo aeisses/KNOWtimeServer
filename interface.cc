@@ -35,6 +35,8 @@ void Interface::Init(Handle<Object> exports) {
   // Prototype
   tpl->PrototypeTemplate()->Set(String::NewSymbol("beginService"),
       FunctionTemplate::New(BeginService)->GetFunction());
+  tpl->PrototypeTemplate()->Set(String::NewSymbol("updateTrip"),
+      FunctionTemplate::New(UpdateTrip)->GetFunction());
   tpl->PrototypeTemplate()->Set(String::NewSymbol("getBuses"),
       FunctionTemplate::New(GetBuses)->GetFunction());
   tpl->PrototypeTemplate()->Set(String::NewSymbol("updateBus"),
@@ -56,6 +58,12 @@ Handle<Value> Interface::BeginService(const Arguments& args) {
 //  return scope.Close(returnObject);
   Service::startService();
   return scope.Close(Number::New(2));
+}
+
+Handle<Value> Interface::UpdateTrip(const Arguments& args) {
+  HandleScope scope;
+  Service::updateTrips();
+  return scope.Close(Number::New(3));
 }
 
 Handle<Value> Interface::GetBuses(const Arguments& args) {

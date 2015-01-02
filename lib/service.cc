@@ -27,19 +27,22 @@ void Service::startService() {
       cout << "---- Finished Route: " << route->id << " ----" << endl;
     } 
   }
+}
 
+void Service::updateTrips() {
   // We want to run one timer, and run everything off the timer. The timer will execute every second
 
   // Loop through the routes and get the trips
-  int i = 0;
-  while (i<5) {
+//  int i = 0;
+//  while (i<5) {
+    cout << "---- Update Trips ----" << endl;
     for (RouteList::iterator it = routes.begin(); it != routes.end(); ++it) {
       // Need to think this out a bit, trips should be in routes
       (*it)->updateTrips();
     }
-    usleep(10000000);
-    i++;
-  }
+//    usleep(10000000);
+//    i++;
+//  }
 }
 
 void Service::updateBus(string tripId, string route, Location *location) {

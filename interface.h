@@ -13,6 +13,7 @@ class Interface : public node::ObjectWrap {
 
     static v8::Handle<v8::Value> New(const v8::Arguments& args);
     static v8::Handle<v8::Value> BeginService(const v8::Arguments& args);
+    static v8::Handle<v8::Value> UpdateTrip(const v8::Arguments& args);
     static v8::Handle<v8::Value> GetBuses(const v8::Arguments& args);
     static v8::Handle<v8::Value> UpdateBus(const v8::Arguments& args);
     static v8::Persistent<v8::Function> constructor;

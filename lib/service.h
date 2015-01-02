@@ -26,6 +26,7 @@ class Service {
     typedef RouteList::const_iterator const_iterator;
     iterator begin() { return routes.begin(); }
     iterator end() { return routes.end(); }
+    static void updateTrips();
     static void updateBus(string, string, Location *);
     static void removeBus(string, string);
     static BusList buses;
