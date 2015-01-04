@@ -59,6 +59,7 @@ time_t Utils::getDateFromTime(string hoursMinutesSeconds) {
     hoursMinutesSeconds.erase(0, pos + delimiter.length());
   }
 
+  cout << "Made time: " << ltm << endl;
   // Return the time object
   return mktime( ltm );
 }

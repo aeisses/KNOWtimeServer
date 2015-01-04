@@ -3,5 +3,6 @@ TODO
 
 Clean up memory issues
 Start testing somethings... This will take some time.
+   -> It seems there is a bit of an issue starting a route when it is at the end of the trip!
 
 Figure out why sorting is not working....
