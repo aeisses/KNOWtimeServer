@@ -186,7 +186,7 @@ void Trip::monitorTrip(Route* route) {
     route->tripCompleted( this );
   } else {
     // Move the trip forward
-    if (currentTime >= nextStopTime->getArrivalTime()) {
+    if (currentTime >= currentStopTime->getArrivalTime()) {
       StopTimeList::iterator it;
       for (it = stoptimes.begin(); it != stoptimes.end(); ++it) {
         if (nextStopTime->stop_sequence == (*it)->stop_sequence) {
