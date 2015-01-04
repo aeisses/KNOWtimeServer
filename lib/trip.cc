@@ -277,7 +277,7 @@ Location* Trip::getCurrentLocationOnTrip() {
   time_t stopTimeStartTime = currentStopTime->getArrivalTime();
   time_t stopTimeEndTime = nextStopTime->getDepartureTime();
   time_t timeDiff = stopTimeEndTime - stopTimeStartTime;
-  cout << "---- TimeDiff: " << timeDiff << endl;
+//  cout << "---- TimeDiff: " << timeDiff << endl;
   time_t timeInterval = 0;
   if (timeDiff != 0) {
     timeInterval = (time_t)(timeDiff/stopLocationDiff);
@@ -290,14 +290,14 @@ Location* Trip::getCurrentLocationOnTrip() {
   for (int i = 1; i<=stopLocationDiff; i++) {
     cout << "**** CurrentTime: " << currentTime << endl;
     cout << "**** StopTimeStartTime: " << stopTimeStartTime << endl;
-    cout << "**** timeInterval: " << timeInterval << endl;
+//    cout << "**** timeInterval: " << timeInterval << endl;
     if (((timeInterval*i) + stopTimeStartTime) > currentTime) {
-      cout << "---- I: " << i << endl;
+//      cout << "---- I: " << i << endl;
       returnLocation = (*(currentStopPoint+i-1))->getLocation();
       break;
     }
   }
-  cout << "---- Returnlocation Latitude: " << returnLocation->latitude << " Longitude: " << returnLocation->longitude << endl;
+//  cout << "---- Returnlocation Latitude: " << returnLocation->latitude << " Longitude: " << returnLocation->longitude << endl;
   return returnLocation;
 }
 
