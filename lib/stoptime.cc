@@ -77,7 +77,6 @@ StopTime::~StopTime () {
 }
 
 time_t StopTime::getArrivalTime() {
-  cout << "#### Arrival_time: " << arrival_time << endl;
   return Utils::getDateFromTime(arrival_time);
 }
 

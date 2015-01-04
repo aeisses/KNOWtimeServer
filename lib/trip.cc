@@ -204,6 +204,8 @@ void Trip::monitorTrip(Route* route) {
     currentStopPoint = currentPath->getPathElementForStop(currentStop->getLocation(), currentStopPoint, direction);
     Stop *nextStop = Stops::getStop(nextStopTime->stopId);
     nextStopPoint = currentPath->getPathElementForStop(nextStop->getLocation(), currentStopPoint, direction);
+    cout << "CurrentStop Id: " << currentStopTime->stopId << endl;
+    cout << "NextStop Id: " << nextStopTime->stopId << endl;
     cout << "---- Done moving the trip forward ----" << endl;
   }
 }

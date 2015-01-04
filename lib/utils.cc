@@ -61,7 +61,6 @@ time_t Utils::getDateFromTime(string hoursMinutesSeconds) {
 
   ltm->tm_sec = 0;
 
-  cout << "Made time: " << asctime(ltm) << endl;
   // Return the time object
   return mktime( ltm );
 }
