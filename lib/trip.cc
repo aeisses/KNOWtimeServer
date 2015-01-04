@@ -288,6 +288,9 @@ Location* Trip::getCurrentLocationOnTrip() {
   time_t currentTime = Utils::getLocalTime();
 
   for (int i = 1; i<=stopLocationDiff; i++) {
+    cout << "**** CurrentTime: " << currentTime << endl;
+    cout << "**** StopTimeStartTime: " << stopTimeStartTime << endl;
+    cout << "**** timeInterval: " << timeInterval << endl;
     if (((timeInterval*i) + stopTimeStartTime) > currentTime) {
       cout << "---- I: " << i << endl;
       returnLocation = (*(currentStopPoint+i-1))->getLocation();
