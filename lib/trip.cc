@@ -294,7 +294,7 @@ Location* Trip::getCurrentLocationOnTrip() {
       break;
     }
   }
-  cout << "---- Returnlocation Latitude: " << returnLocation.latitude << " Longitude: " << returnLocation.longitude << endl;
+  cout << "---- Returnlocation Latitude: " << returnLocation->latitude << " Longitude: " << returnLocation->longitude << endl;
   return returnLocation;
 }
 
