@@ -26,7 +26,7 @@ void Interface::Init(Handle<Object> exports) {
   route_symbol = NODE_PSYMBOL("route");
   tripId_symbol = NODE_PSYMBOL("tripId");
   latitude_symbol = NODE_PSYMBOL("latitude");
-  longitude_symbol = NODE_PSYMBOL("longitide");
+  longitude_symbol = NODE_PSYMBOL("longitude");
 
   // Prepare constructor template
   Local<FunctionTemplate> tpl = FunctionTemplate::New(New);
